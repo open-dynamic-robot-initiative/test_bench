@@ -6,6 +6,10 @@
 #define DEFAULT_KD 1.0
 #define DEFAULT_KI 1.0
 
+#define ROSPARAM_KP "gains_kp"
+#define ROSPARAM_KD "gains_kd"
+#define ROSPARAM_KI "gains_ki"
+
 
 namespace ci_example {
 
@@ -60,6 +64,28 @@ namespace ci_example {
 
   /*! print values encapsulated by the provided configuration console on the standard output */
   void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
+
+
+  /*! Read gains configuration from the ros parameter server*/
+  class RosParameters_configuration : Gains_configuration {
+  public:
+    /**
+     * Attempt to get the gains from the parameter server ("gains_kp","gains_kd","gains_ki" parameters)
+     * If roscore is running, calls to this constructor will be blocking until all the gains are read
+     * or roscore is turned off. If roscore is turned off before gains are read, has_error() will return true
+     * @see has_error()
+     */
+    RosParameters_configuration();
+    double get_kp();
+    double get_kd();
+    double get_ki();
+    bool has_error();
+    std::string get_error();
+  private:
+    double kp,kd,ki;
+    std::string error_message;
+    bool error;
+  }
 
 
 
