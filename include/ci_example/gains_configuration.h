@@ -1,6 +1,10 @@
+#include "ros/ros.h"
+#include "ros/master.h"
 #include <memory>
 #include <iostream>
+#include <fstream>
 #include "yaml-cpp/yaml.h"
+
 
 #define DEFAULT_KP 1.0
 #define DEFAULT_KD 1.0
@@ -10,6 +14,7 @@
 #define ROSPARAM_KD "gains_kd"
 #define ROSPARAM_KI "gains_ki"
 
+using namespace std;
 
 namespace ci_example {
 
@@ -62,8 +67,6 @@ namespace ci_example {
     std::string get_error(); /** always returns "no error" */
   };
 
-  /*! print values encapsulated by the provided configuration console on the standard output */
-  void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
 
 
   /*! Read gains configuration from the ros parameter server*/
@@ -85,8 +88,13 @@ namespace ci_example {
     double kp,kd,ki;
     std::string error_message;
     bool error;
-  }
+  };
 
 
+  /*! print values encapsulated by the provided configuration console on the standard output */
+  void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
+
+
+  double pid(const double position, const double velocity, const double position_target, const std::shared_ptr<Gains_configuration> configuration);
 
 }

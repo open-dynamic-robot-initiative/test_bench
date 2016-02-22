@@ -1,4 +1,3 @@
-#include <fstream>
 #include "ci_example/gains_configuration.h" // where DEFAULT_KP,KD and KI are declared
 
 
@@ -85,7 +84,7 @@ namespace ci_example {
     ros::Rate wait(10);
     bool success = false;
     while (ros::ok()){
-      success = nh.get(parameter,get_value);
+      success = nh.getParam(parameter,get_value);
       if (success) return true;
       wait.sleep();
     }
@@ -134,10 +133,22 @@ namespace ci_example {
 
   // --------------------------- Functions --------------------------- // 
 
-  void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
+  void console_configuration(const std::shared_ptr<Gains_configuration> configuration){
     std::cout << "kp: " << configuration->get_kp() << std::endl;
     std::cout << "kd: " << configuration->get_kd() << std::endl;
     std::cout << "ki: " << configuration->get_ki() << std::endl;
   }
+
+  double pid(const double position, const double velocity, const double position_target, const double delta_time, const std::shared_ptr<Gains_configuration> config, const bool reset_integral){
+    static double integral = 0;
+    if (reset_integral) integral = 0;
+    double position_error = position_target-position;
+    integral += delta_time * position_error;
+    double f = error*config.get_kp() - velocity*config.get_kd() + integral*config.get_ki();
+    return f;
+  }
+
+
+}
 
 
