@@ -92,7 +92,7 @@ namespace ci_example {
 
 
   /*! print values encapsulated by the provided configuration console on the standard output */
-  void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
+  void print_configuration(const std::shared_ptr<Gains_configuration> configuration);
 
   /*! simple 1D pid controller */
   class PID {

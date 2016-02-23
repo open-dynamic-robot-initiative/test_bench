@@ -1,4 +1,4 @@
-#include "ci_example/gains_configuration.h"
+#include "ci_example/basic_pid.h"
 #include "gtest/gtest.h"
 
 

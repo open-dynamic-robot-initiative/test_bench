@@ -1,4 +1,4 @@
-#include "ci_example/gains_configuration.h" // where DEFAULT_KP,KD and KI are declared
+#include "ci_example/basic_pid.h" // where DEFAULT_KP,KD and KI are declared
 
 
 // you may notice that there is no doxygen friendly documentation here.
@@ -137,7 +137,7 @@ namespace ci_example {
 
   // --------------------------- Functions --------------------------- // 
 
-  void console_configuration(const std::shared_ptr<Gains_configuration> configuration){
+  void print_configuration(const std::shared_ptr<Gains_configuration> configuration){
     std::cout << "kp: " << configuration->get_kp() << std::endl;
     std::cout << "kd: " << configuration->get_kd() << std::endl;
     std::cout << "ki: " << configuration->get_ki() << std::endl;
