@@ -38,7 +38,7 @@ namespace ci_example {
   };
 
   /*! Reading configuration from yaml file */
-  class File_configuration : Gains_configuration {
+  class File_configuration : public Gains_configuration {
   public:
     /**
      * returns error encountered when reading configuration
@@ -58,7 +58,7 @@ namespace ci_example {
   };
 
   /*! Returning default configuration: kp: DEFAULT_KP, kd: DEFAULT_KD, ki: DEFAULT_KI */
-  class Default_configuration : Gains_configuration {
+  class Default_configuration : public Gains_configuration {
   public:
     double get_kp();
     double get_kd();
@@ -70,7 +70,7 @@ namespace ci_example {
 
 
   /*! Read gains configuration from the ros parameter server*/
-  class RosParameters_configuration : Gains_configuration {
+  class RosParameters_configuration : public Gains_configuration {
   public:
     /**
      * Attempt to get the gains from the parameter server ("gains_kp","gains_kd","gains_ki" parameters)
@@ -94,7 +94,37 @@ namespace ci_example {
   /*! print values encapsulated by the provided configuration console on the standard output */
   void console_configuration(const std::shared_ptr<Gains_configuration> configuration);
 
+  /*! simple 1D pid controller */
+  class PID {
 
-  double pid(const double position, const double velocity, const double position_target, const std::shared_ptr<Gains_configuration> configuration);
+  public:
+    PID(std::shared_ptr<Gains_configuration> configuration);
+    /**
+     * compute the force related to the pid controller. 
+     * \warning this function is not stateless, as it performs integration. call reset_pid() to reset the integral part. 
+     * @param position current position
+     * @param velocity current velocity
+     * @param position_target target position
+     * @param delta_time time passed since last measurement. Used for integral computation
+     * @return computed force
+   */
+    double compute(const double position, const double velocity, const double position_target, const double delta_time);
+    /*! reset integral part of the PID*/
+    void reset_integral();
+
+  private:
+    std::shared_ptr<Gains_configuration> configuration;
+    double integral;
+
+  };
+
+  
+  /**
+   * convenience factory for getting default controller, i.e. same as PID(std::shared_ptr<Default_configuration> configuration)
+   * @see Default_configuration
+   */
+  std::shared_ptr<PID> get_default_pid();
+
+
 
 }

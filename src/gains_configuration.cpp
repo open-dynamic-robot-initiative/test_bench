@@ -3,7 +3,11 @@
 
 // you may notice that there is no doxygen friendly documentation here.
 // all documentation should be in the header files.
-// but comments are welcomed
+// (but comments are welcomed)
+
+// note the usage of "this->" to access class members.
+// this is a nice way to be unambiguous on the origin of variables
+
 
 namespace ci_example {
 
@@ -19,14 +23,14 @@ namespace ci_example {
       this->kd = node["kd"].as<double>();
       this->ki = node["ki"].as<double>();
 
+      this->error = false;
+
     } catch( const  std::exception& e ){
 
       this->error = true;
       this->error_message = e.what();
 
     }
-
-    this->error = false;
 
   }
 
@@ -139,13 +143,31 @@ namespace ci_example {
     std::cout << "ki: " << configuration->get_ki() << std::endl;
   }
 
-  double pid(const double position, const double velocity, const double position_target, const double delta_time, const std::shared_ptr<Gains_configuration> config, const bool reset_integral){
-    static double integral = 0;
-    if (reset_integral) integral = 0;
+
+  // --------------------------- PID controller --------------------------- // 
+
+  PID::PID(std::shared_ptr<Gains_configuration> configuration){
+    this->integral=0;
+    this->configuration = configuration;
+  }
+  
+  double PID::compute(const double position, const double velocity, const double position_target, const double delta_time){
     double position_error = position_target-position;
-    integral += delta_time * position_error;
-    double f = error*config.get_kp() - velocity*config.get_kd() + integral*config.get_ki();
+    this->integral += delta_time * position_error;
+    double f = position_error*this->configuration->get_kp() - velocity*this->configuration->get_kd() + integral*this->configuration->get_ki();
     return f;
+  }
+  
+  void PID::reset_integral(){
+    this->integral=0;
+  }
+
+  // --------------------------- PID factories --------------------------- // 
+
+  std::shared_ptr<PID> get_default_pid(){
+    std::shared_ptr<Gains_configuration> configuration(new Default_configuration());
+    std::shared_ptr<PID> controller(new PID(configuration));
+    return controller;
   }
 
 
