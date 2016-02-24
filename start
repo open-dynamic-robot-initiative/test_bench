@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# to run : "amd_clmc_get start ci_example"
+
 # the scripts called "start" at the root folder of catkin_packages
 # can be started via "amd_clmc_get start <catkin_package>" 
 # in this case "amd_clmc_get start ci_example"
@@ -10,6 +12,39 @@
 source /opt/ros/groovy/setup.bash
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 cd ../../../../
-catkin_make 
+catkin_make install
 source ./devel/setup.bash
+
+echo ""
+echo "----------------------"
+echo "running all unit test"
+echo "----------------------"
+echo ""
+catkin_make run_tests
+
+echo ""
+echo "-----------------"
+echo "running main demo"
+echo "-----------------"
+echo ""
 ./devel/lib/ci_example/ci_example_demo
+
+echo ""
+echo "------------------------------"
+echo "running demo using config file"
+echo "------------------------------"
+./devel/lib/ci_example/ci_example_abs_path_config_demo
+
+echo ""
+echo "------------------------------------"
+echo "running demo that requires ros setup"
+echo "------------------------------------"
+echo ""
+chmod +x ./install/demos/ci_example_ros_demo && ./install/demos/ci_example_ros_demo
+
+
+echo ""
+echo "--------"
+echo "Done :)"
+echo "--------"
+echo ""

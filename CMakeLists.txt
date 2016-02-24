@@ -4,6 +4,22 @@ project(ci_example)
 # requred to use std::shared_ptr in code
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
+
+####################################################################################
+#                 ensuring path to libraries are set during install                #
+####################################################################################
+# if some demo are required to be run from the install folder
+# (i.e. the folder created when "catkin_make install" is called)
+# the commands below are required to make sure the binaries may still link against
+# their required libraries after install 
+# note: has to be called before add_executable
+# see somewhere below for demo requiring installation
+set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)                                                
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rostest
@@ -72,11 +88,13 @@ target_link_libraries(ci_example_rostest
 #            example of demo supported by continuous integration                   #
 ####################################################################################
 
+### simple example ###
 # any executable which names ends with "_demo" or "_example" will be run
 # automatically by the continuous integration script. Nothing special required
 add_executable(ci_example_demo demos/ci_example_demo.cpp)
 target_link_libraries(ci_example_demo basic_pid)
 
+### requires path to a config file ###
 # This demo requires to read a file in the config folder
 # here we ask the preprocessor to replace in the source TEST_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
@@ -85,5 +103,19 @@ target_link_libraries(ci_example_abs_path_config_demo basic_pid)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
   COMPILE_DEFINITIONS TEST_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
-
-
+### requires a complex setup ###
+# if a demo requires a special setup, then the executable is not start directly,
+# but start via a script that performs the setup/cleaning.
+# in this case ci_example_ros_demo script starts ros, place info in the parameter
+# server, call the demo and kill roscore
+add_executable(ci_example_ros demos/ci_example_ros.cpp)
+target_link_libraries(ci_example_ros basic_pid)
+# the sh script and the executable have to find themselves in the same folder.
+# for this, we configure installation, which will occurs when "catkin_make install" is called
+# then both the script and the executable binaries will find themselves in ./install/demos
+install(TARGETS ci_example_ros basic_pid
+  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/demos 
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+) 
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_ros_demo" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
