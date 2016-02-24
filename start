@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# the scripts called "start" at the root folder of catkin_packages
+# can be started via "amd_clmc_get start <catkin_package>" 
+# in this case "amd_clmc_get start ci_example"
+# this can be used for example to start SL with the correct configuration files
+
+# note: the script has to be executable, you may use: "chmod +x ./start"
+
+source /opt/ros/groovy/setup.bash
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+cd ../../../../
+catkin_make 
+source ./devel/setup.bash
+./devel/lib/ci_example/ci_example_demo
