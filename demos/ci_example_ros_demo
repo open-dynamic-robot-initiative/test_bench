@@ -21,6 +21,6 @@ else
     ./ci_example_ros
     echo "------ DEMO END ------"
 
-killall roscore
+pkill roscore
 fi
 

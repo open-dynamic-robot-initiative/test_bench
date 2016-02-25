@@ -40,7 +40,7 @@ echo "------------------------------------"
 echo "running demo that requires ros setup"
 echo "------------------------------------"
 echo ""
-chmod +x ./install/demos/ci_example_ros_demo && ./install/demos/ci_example_ros_demo
+chmod +x ./install/demos/ci_example_ros_demo && cd ./install/demos && ./ci_example_ros_demo
 
 
 echo ""
