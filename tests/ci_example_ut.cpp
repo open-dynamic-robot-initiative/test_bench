@@ -102,7 +102,7 @@ TEST_F(PID_tests, configurations_same_results_test){
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 
   // an instance of File_configuration is also an instance of Gains_configuration
-  config.reset(new ci_example::File_configuration(YAML_CONFIG_FILE));
+  config.reset(new ci_example::File_configuration(TEST_PID_GAINS_YAML_FILE_PATH));
   ci_example::PID controller_file(config);
   double force_file = controller_file.compute(position,velocity,position_target,delta_time);
 
