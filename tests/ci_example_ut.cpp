@@ -30,11 +30,11 @@ protected:
     node["kp"] = DEFAULT_KP;
     node["kd"] = DEFAULT_KD;
     node["ki"] = DEFAULT_KI;
-    std::ofstream fout(YAML_CONFIG_FILE);
+    std::ofstream fout(TEST_PID_GAINS_YAML_FILE_PATH);
     fout<<node;
   }
   void TearDown() {
-    std::remove(YAML_CONFIG_FILE);
+    std::remove(TEST_PID_GAINS_YAML_FILE_PATH);
   }
 };
 
@@ -52,7 +52,7 @@ TEST_F(PID_tests, default_configuration_test){
 /* ******************************* testing File_configuration ******************************* */
 
 TEST_F(PID_tests, file_configuration_ok_test){
-  ci_example::File_configuration config(YAML_CONFIG_FILE); // see Setup function above to see file creation
+  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see Setup function above to see file creation
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
