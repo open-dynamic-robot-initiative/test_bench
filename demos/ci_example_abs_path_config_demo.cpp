@@ -19,12 +19,12 @@ void run_demo(){
   
   /* reading gains (kp,kd,ki) from yaml config */
 
-  // (look at the CMakeLists.txt to see why TEST_YAML_FILE_PATH is replaced by correct abs path  during compilation)
-  std::string config_file_path = TEST_YAML_FILE_PATH;
+  // (look at the CMakeLists.txt to see why TEST_PID_GAINS_YAML_FILE_PATH is replaced by correct abs path  during compilation)
+  std::string config_file_path = TEST_PID_GAINS_YAML_FILE_PATH;
 
   // Gains_configuration is the base class for all configuration, including
   // the one read from yaml file, as done here. 
-  std::shared_ptr<ci_example::Gains_configuration> gains(new ci_example::File_configuration(TEST_YAML_FILE_PATH));
+  std::shared_ptr<ci_example::Gains_configuration> gains(new ci_example::File_configuration(config_file_path));
 
   // printing to standard output the gains
   std::cout << "gains read from configuration file:" << std::endl;
