@@ -64,7 +64,7 @@ target_link_libraries(ci_example_ut basic_pid)
 # here we ask the preprocessor to replace in the source TEST_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 set_target_properties(ci_example_ut PROPERTIES 
-  COMPILE_DEFINITIONS TEST_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
+  COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
 
 ####################################################################################
@@ -105,12 +105,12 @@ target_link_libraries(ci_example_demo basic_pid)
 
 ### requires path to a config file ###
 # This demo requires to read a file in the config folder
-# here we ask the preprocessor to replace in the source TEST_YAML_FILE_PATH to 
+# here we ask the preprocessor to replace in the source TEST_PID_GAINS_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 add_executable(ci_example_abs_path_config_demo demos/ci_example_abs_path_config_demo.cpp)
 target_link_libraries(ci_example_abs_path_config_demo basic_pid)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
-  COMPILE_DEFINITIONS TEST_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
+  COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
 ### requires a complex setup ###
 # if a demo requires a special setup, then the executable is not start directly,
