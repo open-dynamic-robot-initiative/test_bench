@@ -1,0 +1,15 @@
+# see: https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/how-to-generate-documentation
+
+PROJECT_NAME           = "continuous integration example"
+OUTPUT_DIRECTORY       = doc
+JAVADOC_AUTOBRIEF      = YES
+TAB_SIZE               = 4
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+INPUT                  = ./include/ci_example ./demos ./tests
+FILE_PATTERNS          = *.h \
+                         *.hpp \
+			 *.cpp \
+RECURSIVE              = YES
+GENERATE_LATEX         = NO

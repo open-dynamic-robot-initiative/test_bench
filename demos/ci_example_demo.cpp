@@ -1,3 +1,9 @@
+/**
+ * @file ci_example_demo.cpp
+ * example of a simple demo suitable for continuous integration
+ * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
+ */
+
 #include "ci_example/basic_pid.h" 
 
 void run_demo(){

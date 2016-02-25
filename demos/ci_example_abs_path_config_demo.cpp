@@ -1,3 +1,10 @@
+/**
+ * @file ci_example_abs_path_config_demo.cpp
+ * example of a demo that requires to read a config file
+ * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
+ */
+
+
 #include "ci_example/basic_pid.h" 
 #include <stdexcept>
 

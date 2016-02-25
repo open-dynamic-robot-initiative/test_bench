@@ -1,3 +1,12 @@
+/**
+ * @file ci_example_ut.cpp
+ * example of unit tests
+ * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-unit-tests
+ */
+
+
+
+
 #include "ci_example/basic_pid.h"
 #include "gtest/gtest.h"
 
