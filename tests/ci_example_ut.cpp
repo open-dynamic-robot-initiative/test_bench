@@ -70,10 +70,10 @@ TEST_F(PID_tests, file_configuration_fail_test){
 // most of the time it will be non practical to write the test config file at runtime as it
 // was done above in the SetUp method. Here is an example of using the config file stored in 
 // the "config" folder of this catkin package. 
-// look at the CMakeLists.txt to see why TEST_YAML_FILE_PATH is replaced during compilation
+// look at the CMakeLists.txt to see why TEST_PID_GAINS_YAML_FILE_PATH is replaced during compilation
 // by the absolute path to the file /config/test_pid_gains.yaml
 TEST_F(PID_tests, read_config_file_test){
-  ci_example::File_configuration config(TEST_YAML_FILE_PATH); 
+  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); 
   ASSERT_EQ(config.has_error(),false);
 }
 
