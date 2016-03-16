@@ -40,12 +40,12 @@ class PID:
      @param delta_time time passed since last measurement. Used for integral computation
      @return computed force
      """
-    def compute(position,velocity,position_target,delta_time):
+    def compute(self,position,velocity,position_target,delta_time):
         position_error = position_target - position
         self._integral += delta_time * position_error
         return position_error*self._configuration.kp-velocity*self._configuration.kd+self._integral*self._configuration.ki
     def __str__(self):
-        return "PID controller: kp:"+str(self.kp)+" kd:"+str(self.kd)+" ki:"+str(self.ki)
+        return "PID controller: kp:"+str(self._configuration.kp)+" kd:"+str(self._configuration.kd)+" ki:"+str(self._configuration.ki)
 
 
 ### convenience function for reading pid configuration from yaml file
@@ -94,16 +94,21 @@ def get_ros_params_pid(verbose=True):
         raise Exception("failed to read ros parameters: ros is shutdown")
     # placeholder for the config
     class config:
-        kp,kd,ki
+        kp=None
+        kd=None
+        ki=None
     # reading the gains from ros parameter server
     parameters = [ROS_configuration.ROSPARAM_KP,ROS_configuration.ROSPARAM_KD,ROS_configuration.ROSPARAM_KI]
+    gains = ["kp","kd","ki"]
     # if requested, printing the parameters it is about to read
     if verbose:
         print "reading ros parameters: "+", ".join(parameters)
-    gains = [config.kp,config.kd,config.ki]
     for parameter,gain in zip(parameters,gains):
+        if not rospy.has_param(parameter):
+            raise Exception("ros parameter server does not have the requested parameter "+str(parameter)+"(parameters: "+", ".join(rospy.get_param_names())+")")
         try:
-            gain = rospy.get_param(parameter)
+            value = rospy.get_param(parameter)
+            setattr(config,gain,value)
         except Exception as e:
             raise Exception("failed to read ros parameter "+str(parameter)+": "+str(e))
     # constructing and returning controller    

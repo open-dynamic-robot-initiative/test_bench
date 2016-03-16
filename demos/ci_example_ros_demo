@@ -23,6 +23,7 @@ else
     echo "------ DEMO END ------"
 
     echo "------ PYTHON DEMO START ------"
+    source ../setup.bash # adding ci_example.pid to python path
     python ./ci_example_python_ros.py
     echo "------ DEMO END ------"
 

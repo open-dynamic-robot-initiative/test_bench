@@ -27,9 +27,13 @@ find_package(catkin REQUIRED COMPONENTS
   YAML_CPP
 )
 
+####################################################################################
+#                           dealing with CPP                                       #
+####################################################################################
+
 catkin_package(
- LIBRARIES gains_configuration
- INCLUDE_DIRS include
+ LIBRARIES gains_configuration # exporting the gains_configuration library (libs and executable built in other catkin package will be able to link against them)
+ INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
  CATKIN_DEPENDS roscpp std_msgs YAML_CPP 
 )
 
@@ -44,6 +48,13 @@ get_filename_component(CONFIG_PATH config ABSOLUTE)
 add_library(basic_pid SHARED src/basic_pid.cpp)
 target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 
+####################################################################################
+#                         dealing with Python                                      #
+####################################################################################
+
+# more information can be found here: http://docs.ros.org/jade/api/catkin/html/user_guide/setup_dot_py.html
+# and setup.py in same folder as this file
+catkin_python_setup()
 
 ####################################################################################
 #                         example of unit tests                                    #
