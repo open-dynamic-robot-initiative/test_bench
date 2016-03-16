@@ -127,4 +127,5 @@ install(TARGETS ci_example_ros basic_pid
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
 ) 
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_ros_demo" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_ros_demo"
+ "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_python_ros.py" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
