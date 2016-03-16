@@ -18,15 +18,22 @@ else
     rosparam set gains_kd 1
     rosparam set gains_ki 1
 
+    echo ""
     echo "------ CPP DEMO START ------"
+    echo ""
     ./ci_example_ros
+    echo ""
     echo "------ DEMO END ------"
+    echo ""
 
+    echo ""
     echo "------ PYTHON DEMO START ------"
+    echo ""
     source ../setup.bash # adding ci_example.pid to python path
     python ./ci_example_python_ros.py
+    echo ""
     echo "------ DEMO END ------"
-
+    echo ""
 
 pkill roscore
 fi

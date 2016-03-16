@@ -54,6 +54,7 @@ target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 
 # more information can be found here: http://docs.ros.org/jade/api/catkin/html/user_guide/setup_dot_py.html
 # and setup.py in same folder as this file
+# what this does: after calling catkin_make and sourcing devel/setup.bash, ci_example.pid will be in python path
 catkin_python_setup()
 
 ####################################################################################
@@ -77,16 +78,6 @@ target_link_libraries(ci_example_ut basic_pid)
 set_target_properties(ci_example_ut PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
-
-####################################################################################
-#                 how to name your demo executables ?                              #
-####################################################################################
-
-# Please note that all the demos that are to be executed by the continuous integration script have a name that:
-# - starts with the name of the current catkin package (ci_example_...)
-# - ends with "_demo".
-# This is *required*
-
 ####################################################################################
 #                 example of unit tests that use ROS                               #
 ####################################################################################
@@ -103,6 +94,23 @@ add_rostest_gtest(ci_example_rostest
   tests/main.cpp )
 target_link_libraries(ci_example_rostest
   ${catkin_LIBRARIES}  basic_pid)
+
+####################################################################################
+#                 how to name your demo executables ?                              #
+####################################################################################
+
+# Please note that all the demos that are to be executed by the continuous integration script have a name that:
+# - starts with the name of the current catkin package (ci_example_...)
+# - ends with "_demo".
+# This is *required*
+
+####################################################################################
+#                           example of python demo                                 #
+####################################################################################
+
+# the python script is set as executable, named *_demo (in this case ci_example_python_demo),
+# placed in demos and copies to install/demo folder when 'catkin_make install' is called 
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_ros_demo" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
 
 ####################################################################################
 #            example of demo supported by continuous integration                   #
@@ -138,5 +146,4 @@ install(TARGETS ci_example_ros basic_pid
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
 ) 
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_ros_demo"
- "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_python_ros.py" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/demos/ci_example_python_ros.py" DESTINATION ${CMAKE_INSTALL_PREFIX}/demos )
