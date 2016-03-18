@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>ci_example</name>
+  <name>ci_example_cpp</name>
   <version>1.0.0</version>
-  <description>collection of examples of demos and unit tests, in implementations suitable for continuous integration</description>
+  <description>collection of examples of python demos and unit tests, in implementations suitable for continuous integration</description>
   <author email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</author>
   <maintainer email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</maintainer>
   <license>TODO</license>
