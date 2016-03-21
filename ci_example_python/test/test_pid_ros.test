@@ -1,0 +1,3 @@
+<launch>
+<test test-name="test_pid_ros" pkg="ci_example_python" type="test_pid_ros.py"/>
+</launch>

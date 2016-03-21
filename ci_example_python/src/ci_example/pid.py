@@ -12,9 +12,9 @@ class Default_configuration:
 
 class ROS_configuration:
 
-    ROSPARAM_KP = "gains_kp"
-    ROSPARAM_KD = "gains_kd"
-    ROSPARAM_KI = "gains_ki"
+    ROSPARAM_KP = "kp"
+    ROSPARAM_KD = "kd"
+    ROSPARAM_KI = "ki"
 
 
 class Config_file_configuration:
@@ -123,7 +123,7 @@ def get_ros_params_pid(verbose=True):
         print "reading ros parameters: "+", ".join(parameters)
     for parameter,gain in zip(parameters,gains):
         if not rospy.has_param(parameter):
-            raise Exception("ros parameter server does not have the requested parameter "+str(parameter)+"(parameters: "+", ".join(rospy.get_param_names())+")")
+            raise Exception("ros parameter server does not have the requested parameter: "+str(parameter)+" (current parameters: "+", ".join(rospy.get_param_names())+")")
         try:
             value = rospy.get_param(parameter)
             setattr(config,gain,value)

@@ -19,14 +19,28 @@ catkin_python_setup()
 #                           activating unit tests                                  #
 ####################################################################################
 
+
 # to run the tests:
 # 1. call "catkin_make" from root of catkin workspace
 # 2. call "source ./devel/setup.bash"
 # 3. call "catkin_make run_tests"
 
 if(CATKIN_ENABLE_TESTING)
+
+  # regular unit tests (test is the name of the folder in which all the tests are)
   catkin_add_nosetests(test)
+
+  # test that requires roscore to run:
+  # tests are started via *.test files which are ros launch files
+  # consequently, these tests may run under the assumption roscore is running
+  find_package(rostest REQUIRED)
+  add_rostest(test/test_pid_ros.test)
+
+
 endif()
+
+
+
 
 
 ####################################################################################
