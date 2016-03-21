@@ -30,11 +30,11 @@ protected:
     node["kp"] = DEFAULT_KP;
     node["kd"] = DEFAULT_KD;
     node["ki"] = DEFAULT_KI;
-    std::ofstream fout(TEST_PID_GAINS_YAML_FILE_PATH);
+    std::ofstream fout(YAML_CONFIG_FILE);
     fout<<node;
   }
   void TearDown() {
-    std::remove(TEST_PID_GAINS_YAML_FILE_PATH);
+    std::remove(YAML_CONFIG_FILE);
   }
 };
 
@@ -52,7 +52,7 @@ TEST_F(PID_tests, default_configuration_test){
 /* ******************************* testing File_configuration ******************************* */
 
 TEST_F(PID_tests, file_configuration_ok_test){
-  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see Setup function above to see file creation
+  ci_example::File_configuration config(YAML_CONFIG_FILE); // see Setup function above to see file creation
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
@@ -67,13 +67,8 @@ TEST_F(PID_tests, file_configuration_fail_test){
 /* ******************************* testing File_configuration ******************************* */
 /* ******************************* with default configuration file ******************************* */
 
-// most of the time it will be non practical to write the test config file at runtime as it
-// was done above in the SetUp method. Here is an example of using the config file stored in 
-// the "config" folder of this catkin package. 
-// look at the CMakeLists.txt to see why TEST_PID_GAINS_YAML_FILE_PATH is replaced during compilation
-// by the absolute path to the file /config/test_pid_gains.yaml
 TEST_F(PID_tests, read_config_file_test){
-  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); 
+  ci_example::File_configuration config(YAML_CONFIG_FILE); 
   ASSERT_EQ(config.has_error(),false);
 }
 
@@ -102,7 +97,7 @@ TEST_F(PID_tests, configurations_same_results_test){
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 
   // an instance of File_configuration is also an instance of Gains_configuration
-  config.reset(new ci_example::File_configuration(TEST_PID_GAINS_YAML_FILE_PATH));
+  config.reset(new ci_example::File_configuration(YAML_CONFIG_FILE));
   ci_example::PID controller_file(config);
   double force_file = controller_file.compute(position,velocity,position_target,delta_time);
 
@@ -115,9 +110,9 @@ TEST_F(PID_tests, configurations_same_results_test){
 // arguably, these tests are way insufficient. E.g. stability of the controller
 // is not tested. Ideally, some simulation should be used for better testing.
 // Use your best judgement to evaluate to which extend investing time and effort is worth the gain.
-// But these considerations should not emped in the implementation of simpler and basic test
+// But these considerations should never stop you to implement the simpler and basic tests
 // such as the one presented here. 
-// *** Such test take 5 min to implement **, 
+// *** Such tests take 5 min to implement **, 
 // yet they can be very useful by catching at least some of the main error that may occure
 
 // does integral integrates ?
