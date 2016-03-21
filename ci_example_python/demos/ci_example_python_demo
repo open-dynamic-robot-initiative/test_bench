@@ -24,7 +24,7 @@ delta_time = 0.001
 # basic example of PID usage
 print "basic pid usage:"
 class Configuration:
-    def __init__(kp,kd,ki):
+    def __init__(self,kp,kd,ki):
         self.kp,self.kd,self.ki=kp,kd,ki
 config = Configuration(1,1,1)
 pid = PID(config)

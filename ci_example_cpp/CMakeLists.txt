@@ -114,23 +114,19 @@ target_link_libraries(ci_example_rostest
 # purpose are to provide users with clear example of usage. 
 
 ### simple example ###
-# any executable installed in <catkin packate root>/demos will be executed
-# by the continuous integration script. e.g:
+# any executable with name <catkin_package_name>_<whatever>_<demo> will be run 
+# automatically by the continuous integration script. e.g:
 add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
 target_link_libraries(ci_example_demo basic_pid)
-install(TARGETS ci_example_demo RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/demos) 
 
 ### requires path to a config file ###
 # This demo requires to read a file in the config folder
 # here we ask the preprocessor to replace in the source TEST_PID_GAINS_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
-# in such case, the continuous integration will run the executable from the
-# <catkin workspace root>/devel/lib/<catkin_package> folder (after catkin_make has been called)
 add_executable(ci_example_abs_path_config_demo src/demos/ci_example_abs_path_config_demo.cpp)
 target_link_libraries(ci_example_abs_path_config_demo basic_pid)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
-install(TARGETS ci_example_abs_path_config_demo RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/demos) 
 
 ### requires a complex setup ###
 # if a demo requires a special setup, then the executable is not start directly,
