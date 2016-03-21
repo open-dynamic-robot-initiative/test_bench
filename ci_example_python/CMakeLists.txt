@@ -16,6 +16,20 @@ project(ci_example_python)
 catkin_python_setup()
 
 ####################################################################################
+#                           activating unit tests                                  #
+####################################################################################
+
+# to run the tests:
+# 1. call "catkin_make" from root of catkin workspace
+# 2. call "source ./devel/setup.bash"
+# 3. call "catkin_make run_tests"
+
+if(CATKIN_ENABLE_TESTING)
+  catkin_add_nosetests(test)
+endif()
+
+
+####################################################################################
 #                           example of python demo                                 #
 ####################################################################################
 
