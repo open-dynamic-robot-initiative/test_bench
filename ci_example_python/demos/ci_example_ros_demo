@@ -22,7 +22,7 @@ else
     echo ""
     echo "------ PYTHON DEMO START ------"
     echo ""
-    python ./python/ci_example_python_ros.py
+    python ./src/ci_example_python_ros.py
     echo ""
     echo "------ DEMO END ------"
     echo ""
