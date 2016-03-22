@@ -26,6 +26,13 @@ else
     echo "------ PYTHON DEMO START ------"
     echo ""
     python ./src/ci_example_python_ros_demo.py
+
+    # this will exit the script if the previous command failed
+    if [ "$?" -ne "0" ]; then
+	echo "python demo failed !"
+	exit 1
+    fi
+
     echo ""
     echo "------ DEMO END ------"
     echo ""
