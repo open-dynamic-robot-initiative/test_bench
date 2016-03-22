@@ -9,29 +9,37 @@
 path_to_devel=$1
 source ${path_to_devel}/setup.bash
 
+# trying to start roscore, exiting if failure to do so
 roscore &
 sleep 2
 roscore_running=$(ps aux | grep roscore | grep opt)
 if [ -z "$roscore_running" ]
 then
-    echo "failed to start roscore"
-else
-    
-    echo "------ setting parameters -----"
-    rosparam set gains_kp 1
-    rosparam set gains_kd 1
-    rosparam set gains_ki 1
-
-    echo ""
-    echo "------ PYTHON DEMO START ------"
-    echo ""
-    python ./src/ci_example_python_ros_demo.py
-    echo ""
-    echo "------ DEMO END ------"
-    echo ""
-
     exit 1
-
-    pkill roscore
 fi
+
+# setting parameters in ros parameter server
+echo "------ setting parameters -----"
+rosparam set gains_kp 1
+rosparam set gains_kd 1
+rosparam set gains_ki 1
+
+# if the next commands return error code, stopping roscore and exiting with error message
+# if not implemented, the continuous integration script will not know the demo failed 
+# (because python will return an error code, but not this script)
+trap "pkill roscore && exit 1" ERR EXIT
+
+
+# running the python demo
+echo ""
+echo "------ PYTHON DEMO START ------"
+echo ""
+python ./src/ci_example_python_ros_demo.py
+echo ""
+echo "------ DEMO END ------"
+echo ""
+
+# stopping ros
+pkill roscore
+
 
