@@ -30,7 +30,8 @@ else
     echo "------ DEMO END ------"
     echo ""
 
+    exit 1
+
     pkill roscore
 fi
 
-exit 1
