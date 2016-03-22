@@ -34,7 +34,7 @@ echo ""
 echo "------ PYTHON DEMO START ------"
 echo ""
 python ./src/ci_example_python_ros_demo.py 
-success = $?
+success=$? # $? is the exit code of the latest command, here call to python
 echo ""
 echo "------ DEMO END ------"
 echo ""

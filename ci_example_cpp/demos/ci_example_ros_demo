@@ -25,13 +25,14 @@ rosparam set gains_ki 1
 # if the next commands return error code, stopping roscore and exiting with error message
 # if not implemented, the continuous integration script will not know the demo failed 
 # (because ci_example_ros will return an error code, but not this script)
-trap "pkill roscore && exit 1" ERR EXIT
+#trap "pkill roscore && exit 1" ERR EXIT
 
 # running the demo
 echo ""
 echo "------ CPP DEMO START ------"
 echo ""
 ./bin/ci_example_ros
+success=$?
 echo ""
 echo "------ DEMO END ------"
 echo ""
@@ -39,4 +40,5 @@ echo ""
 # stopping ros
 pkill roscore
 
+exit $success
 
