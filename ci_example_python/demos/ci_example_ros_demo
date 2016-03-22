@@ -20,9 +20,9 @@ fi
 
 # setting parameters in ros parameter server
 echo "------ setting parameters -----"
-rosparam set gains_kp 1
-rosparam set gains_kd 1
-rosparam set gains_ki 1
+rosparam set kp 1
+rosparam set kd 1
+rosparam set ki 1
 
 # if the next commands return error code, stopping roscore and exiting with error message
 # if not implemented, the continuous integration script will not know the demo failed 
