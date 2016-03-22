@@ -9,9 +9,6 @@
 path_to_devel=$1
 source ${path_to_devel}/setup.bash
 
-# this set the script to stop and return an error exit on any failed command
-set -e
-
 roscore &
 sleep 2
 roscore_running=$(ps aux | grep roscore | grep opt)
