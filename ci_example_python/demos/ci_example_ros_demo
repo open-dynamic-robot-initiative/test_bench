@@ -27,18 +27,21 @@ rosparam set ki 1
 # if the next commands return error code, stopping roscore and exiting with error message
 # if not implemented, the continuous integration script will not know the demo failed 
 # (because python will return an error code, but not this script)
-trap "echo 'error detected on line: $LINENO' && echo 'python demo log: ' && cat ci_example_python_ros_demo.log && pkill roscore && exit 1" ERR EXIT
+#trap "echo 'error detected on line: $LINENO' && echo 'python demo log: ' && cat ci_example_python_ros_demo.log && pkill roscore && exit 1" ERR EXIT
 
 # running the python demo
 echo ""
 echo "------ PYTHON DEMO START ------"
 echo ""
-python ./src/ci_example_python_ros_demo.py > ci_example_python_ros_demo.log
+python ./src/ci_example_python_ros_demo.py 
+success = $?
 echo ""
 echo "------ DEMO END ------"
 echo ""
 
 # stopping ros
 pkill roscore
+
+exit $success
 
 
