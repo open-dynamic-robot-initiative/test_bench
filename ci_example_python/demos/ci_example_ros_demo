@@ -22,8 +22,6 @@ else
     rosparam set gains_kd 1
     rosparam set gains_ki 1
 
-    exit 1
-
     echo ""
     echo "------ PYTHON DEMO START ------"
     echo ""
@@ -32,6 +30,7 @@ else
     echo "------ DEMO END ------"
     echo ""
 
-pkill roscore
+    pkill roscore
 fi
 
+exit 1
