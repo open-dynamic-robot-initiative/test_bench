@@ -1,36 +1,43 @@
+"""@package
+Simple 1D PID controller, along with convenience factory
+"""
+
+
 import os
 
 
-### configuration for getting default, ros or file based configuration
 
+## Configuration: default values for kp, kd and ki
 class Default_configuration:
-
+    ## proportional gain
     kp=1
+    ## derivative gain
     kd=1
+    ## integral gain
     ki=1
 
-
+## Configuration: name of ros parameter server keys in which gains should be stored
 class ROS_configuration:
-
+    ## key for reading kp gain
     ROSPARAM_KP = "kp"
+    ## key for reading kd gain
     ROSPARAM_KD = "kd"
+    ## key for reading ki gain
     ROSPARAM_KI = "ki"
 
-
+## Configuration: path to default configuration file, relative to the pid package
 class Config_file_configuration:
-
+    ## relative path
     relative_path = ".."+os.sep+".."+os.sep+"config"+os.sep+"test_pid_gains.yaml"
 
-
-
-### code for simple 1D PID controller
-
-"""!
-@brief Simple 1D PID controller.
-@param configuration object with "kp", "kd" and "ki" attributes (as float)
-"""
+## code for simple 1D PID controller
 class PID:
-
+    """
+    Simple 1D PID controller
+    """
+    
+    ##
+    #@param configuration any object with "kp", "kd" and "ki" attributes (as float)
     def __init__(self,configuration):
         self._configuration = configuration
         self._integral = 0
