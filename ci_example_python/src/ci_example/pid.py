@@ -2,12 +2,12 @@
 Simple 1D PID controller, along with convenience factory
 """
 
-
 import os
 
-
-
-## Configuration: default values for kp, kd and ki
+## 
+# Configuration object with default values for kp, kd and ki
+# can be used as input argument to create an instance of PID
+# @see PID
 class Default_configuration:
     ## proportional gain
     kp=1
@@ -27,7 +27,7 @@ class ROS_configuration:
 
 ## Configuration: path to default configuration file, relative to the pid package
 class Config_file_configuration:
-    ## relative path
+    ## relative path to the default configuration fole
     relative_path = ".."+os.sep+".."+os.sep+"config"+os.sep+"test_pid_gains.yaml"
 
 ## code for simple 1D PID controller
@@ -42,25 +42,23 @@ class PID:
         self._configuration = configuration
         self._integral = 0
 
-    """!
-    return dictionary of gains, keys: "kp", "kd" and "ki"
-    """
+    ##
+    #@return dictionary of gains, keys: "kp", "kd" and "ki"
     def get_gains(self):
         return {"kp":self._configuration.kp,"kd":self._configuration.kp,"ki":self._configuration.ki}
 
-    """ ! resert integral part of the PID """
+    ## resert integral part of the PID 
     def reset_integral(self):
         self._integral = 0
 
-    """!
-     compute the force related to the pid controller. 
-     \warning this function is not stateless, as it performs integration. call reset_pid() to reset the integral part. 
-     @param position current position
-     @param velocity current velocity
-     @param position_target target position
-     @param delta_time time passed since last measurement. Used for integral computation
-     @return computed force
-     """
+    ##
+    #compute the force related to the pid controller. 
+    #this function is not stateless, as it performs integration. call reset_pid() to reset the integral part. 
+    #@param position current position
+    #@param velocity current velocity
+    #@param position_target target position
+    #@param delta_time time passed since last measurement. Used for integral computation
+    #@return computed force
     def compute(self,position,velocity,position_target,delta_time):
         position_error = position_target - position
         self._integral += delta_time * position_error
@@ -71,8 +69,7 @@ class PID:
 
 
 
-### convenience function for reading pid configuration from yaml file
-
+# convenience function for reading pid configuration from yaml file
 def _read_yaml_config_file(file_path):
     # importing yaml and reading yaml file
     import yaml
@@ -97,21 +94,19 @@ def _read_yaml_config_file(file_path):
 
 ### factories for getting already configured pid controllers
 
-"""! 
-return PID based on default configuration
-@see PID
-@see Default_configuration
-"""
+## 
+#return PID based on default configuration
+#@see PID
+#@see Default_configuration
 def get_default_pid():
     return PID(Default_configuration)
 
-"""! 
-return PID based on gains read from the ROS parameter server. 
-assumes roscore is running and suitable parameters have been written in the server.
-@param verbose if true, print the ros parameters it reads to standard output
-@see PID
-@see ROS_configuration
-"""
+##
+#return PID based on gains read from the ROS parameter server. 
+#assumes roscore is running and suitable parameters have been written in the server.
+#@param verbose if true, print the ros parameters it reads to standard output
+#@see PID
+#@see ROS_configuration
 def get_ros_params_pid(verbose=True):
     # importing ros and checking roscore is running
     import rospy
@@ -139,15 +134,14 @@ def get_ros_params_pid(verbose=True):
     # constructing and returning controller    
     return PID(config)
 
-"""! 
-return PID based on gains read from default configuration file 
-Path to configuration file relative to the script where this function is 
-defined is specified in the Config_file_configuration object.
-@param config_file_path if None, uses default config file (in config folder), else used specified path
-@param verbose if True, print path to config file used to standard output
-@see PID
-@see Config_file_configuration
-"""
+##
+#return PID based on gains read from default configuration file 
+#Path to configuration file relative to the script where this function is 
+#defined is specified in the Config_file_configuration object.
+#@param config_file_path if None, uses default config file (in config folder), else used specified path
+#@param verbose if True, print path to config file used to standard output
+#@see PID
+#@see Config_file_configuration
 def get_config_file_pid(config_file_path=None,verbose=True):
     if config_file_path is None:
         # getting abs path to this script

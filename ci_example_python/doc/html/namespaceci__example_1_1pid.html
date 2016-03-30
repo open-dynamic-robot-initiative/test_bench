@@ -106,7 +106,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1Default__configuration.html">Default_configuration</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration: default values for kp, kd and ki.  <a href="classci__example_1_1pid_1_1Default__configuration.html#details">More...</a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration object with default values for kp, kd and ki can be used as input argument to create an instance of <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a>.  <a href="classci__example_1_1pid_1_1Default__configuration.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1ROS__configuration.html">ROS_configuration</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration: name of ros parameter server keys in which gains should be stored.  <a href="classci__example_1_1pid_1_1ROS__configuration.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1Config__file__configuration.html">Config_file_configuration</a></td></tr>
@@ -115,18 +115,108 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">code for simple 1D <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> controller  <a href="classci__example_1_1pid_1_1PID.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1bb274079e9a117d27ec55ad05cfd75c"></a><!-- doxytag: member="ci_example::pid::get_default_pid" ref="a1bb274079e9a117d27ec55ad05cfd75c" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceci__example_1_1pid.html#a1bb274079e9a117d27ec55ad05cfd75c">get_default_pid</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">factories for getting already configured pid controllers <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f1d2df0615c2b93cf597a66781b8c2c"></a><!-- doxytag: member="ci_example::pid::get_ros_params_pid" ref="a0f1d2df0615c2b93cf597a66781b8c2c" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_ros_params_pid</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51e9cd8cc99735b78d60fc4047bd8654"></a><!-- doxytag: member="ci_example::pid::get_config_file_pid" ref="a51e9cd8cc99735b78d60fc4047bd8654" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_config_file_pid</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceci__example_1_1pid.html#a1bb274079e9a117d27ec55ad05cfd75c">get_default_pid</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">factories for getting already configured pid controllers  <a href="#a1bb274079e9a117d27ec55ad05cfd75c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceci__example_1_1pid.html#a0f1d2df0615c2b93cf597a66781b8c2c">get_ros_params_pid</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">return <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> based on gains read from the ROS parameter server.  <a href="#a0f1d2df0615c2b93cf597a66781b8c2c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceci__example_1_1pid.html#a51e9cd8cc99735b78d60fc4047bd8654">get_config_file_pid</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">return <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> based on gains read from default configuration file Path to configuration file relative to the script where this function is defined is specified in the <a class="el" href="classci__example_1_1pid_1_1Config__file__configuration.html" title="Configuration: path to default configuration file, relative to the pid package.">Config_file_configuration</a> object.  <a href="#a51e9cd8cc99735b78d60fc4047bd8654"></a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">@package
 Simple 1D PID controller, along with convenience factory
-</pre></div> </div></div><!-- contents -->
+</pre></div> </div><hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a51e9cd8cc99735b78d60fc4047bd8654"></a><!-- doxytag: member="ci_example::pid::get_config_file_pid" ref="a51e9cd8cc99735b78d60fc4047bd8654" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceci__example_1_1pid.html#a51e9cd8cc99735b78d60fc4047bd8654">ci_example.pid.get_config_file_pid</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>config_file_path</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> based on gains read from default configuration file Path to configuration file relative to the script where this function is defined is specified in the <a class="el" href="classci__example_1_1pid_1_1Config__file__configuration.html" title="Configuration: path to default configuration file, relative to the pid package.">Config_file_configuration</a> object. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config_file_path</td><td>if None, uses default config file (in config folder), else used specified path </td></tr>
+    <tr><td class="paramname">verbose</td><td>if True, print path to config file used to standard output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> </dd>
+<dd>
+<a class="el" href="classci__example_1_1pid_1_1Config__file__configuration.html" title="Configuration: path to default configuration file, relative to the pid package.">Config_file_configuration</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1bb274079e9a117d27ec55ad05cfd75c"></a><!-- doxytag: member="ci_example::pid::get_default_pid" ref="a1bb274079e9a117d27ec55ad05cfd75c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceci__example_1_1pid.html#a1bb274079e9a117d27ec55ad05cfd75c">ci_example.pid.get_default_pid</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>factories for getting already configured pid controllers </p>
+<p>return <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> based on default configuration </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> </dd>
+<dd>
+<a class="el" href="classci__example_1_1pid_1_1Default__configuration.html" title="Configuration object with default values for kp, kd and ki can be used as input argument to create an...">Default_configuration</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0f1d2df0615c2b93cf597a66781b8c2c"></a><!-- doxytag: member="ci_example::pid::get_ros_params_pid" ref="a0f1d2df0615c2b93cf597a66781b8c2c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceci__example_1_1pid.html#a0f1d2df0615c2b93cf597a66781b8c2c">ci_example.pid.get_ros_params_pid</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>True</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> based on gains read from the ROS parameter server. </p>
+<p>assumes roscore is running and suitable parameters have been written in the server. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">verbose</td><td>if true, print the ros parameters it reads to standard output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> </dd>
+<dd>
+<a class="el" href="classci__example_1_1pid_1_1ROS__configuration.html" title="Configuration: name of ros parameter server keys in which gains should be stored.">ROS_configuration</a> </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -144,7 +234,7 @@ Simple 1D PID controller, along with convenience factory
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 30 2016 10:14:28 for continuous integration example (python) by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 30 2016 10:39:51 for continuous integration example (python) by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

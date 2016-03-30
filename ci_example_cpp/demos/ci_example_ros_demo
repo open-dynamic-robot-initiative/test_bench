@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ### this scripts expects ci_example_ros binary to be in ./bin folder
 ### this binary is compiled and copied there during install. See CMakeLists.txt for details
 

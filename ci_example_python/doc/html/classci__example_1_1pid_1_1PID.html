@@ -112,12 +112,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1PID.html#a72634e2a7a098aaa7d8a7293e2e3fa6c">__init__</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeed0ef200fafd2b4f9bbd6614a543b72"></a><!-- doxytag: member="ci_example::pid::PID::get_gains" ref="aeed0ef200fafd2b4f9bbd6614a543b72" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_gains</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1PID.html#aeed0ef200fafd2b4f9bbd6614a543b72">get_gains</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af76bb8e0593778b57ff47286cd4a4471"></a><!-- doxytag: member="ci_example::pid::PID::reset_integral" ref="af76bb8e0593778b57ff47286cd4a4471" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>reset_integral</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e3494d93662b875bbeecd04d1b61f34"></a><!-- doxytag: member="ci_example::pid::PID::compute" ref="a6e3494d93662b875bbeecd04d1b61f34" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>compute</b></td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1PID.html#af76bb8e0593778b57ff47286cd4a4471">reset_integral</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">resert integral part of the <a class="el" href="classci__example_1_1pid_1_1PID.html" title="code for simple 1D PID controller">PID</a> <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classci__example_1_1pid_1_1PID.html#a6e3494d93662b875bbeecd04d1b61f34">compute</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the force related to the pid controller.  <a href="#a6e3494d93662b875bbeecd04d1b61f34"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1bfeeba6c432a3b77b700c3f978df10a"></a><!-- doxytag: member="ci_example::pid::PID::__str__" ref="a1bfeeba6c432a3b77b700c3f978df10a" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__str__</b></td></tr>
 </table>
@@ -159,6 +159,83 @@ Simple 1D PID controller
 
 </div>
 </div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a6e3494d93662b875bbeecd04d1b61f34"></a><!-- doxytag: member="ci_example::pid::PID::compute" ref="a6e3494d93662b875bbeecd04d1b61f34" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classci__example_1_1pid_1_1PID.html#a6e3494d93662b875bbeecd04d1b61f34">ci_example.pid.PID.compute</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>velocity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>position_target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>delta_time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>compute the force related to the pid controller. </p>
+<p>this function is not stateless, as it performs integration. call reset_pid() to reset the integral part. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>current position </td></tr>
+    <tr><td class="paramname">velocity</td><td>current velocity </td></tr>
+    <tr><td class="paramname">position_target</td><td>target position </td></tr>
+    <tr><td class="paramname">delta_time</td><td>time passed since last measurement. Used for integral computation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>computed force </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aeed0ef200fafd2b4f9bbd6614a543b72"></a><!-- doxytag: member="ci_example::pid::PID::get_gains" ref="aeed0ef200fafd2b4f9bbd6614a543b72" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classci__example_1_1pid_1_1PID.html#aeed0ef200fafd2b4f9bbd6614a543b72">ci_example.pid.PID.get_gains</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>dictionary of gains, keys: "kp", "kd" and "ki" </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/ci_example/pid.py</li>
 </ul>
@@ -180,7 +257,7 @@ Simple 1D PID controller
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 30 2016 10:14:28 for continuous integration example (python) by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 30 2016 10:39:51 for continuous integration example (python) by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
