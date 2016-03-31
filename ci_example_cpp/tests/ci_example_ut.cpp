@@ -52,7 +52,7 @@ TEST_F(PID_tests, default_configuration_test){
 /* ******************************* testing File_configuration ******************************* */
 
 TEST_F(PID_tests, file_configuration_ok_test){
-  ci_example::File_configuration config(YAML_CONFIG_FILE); // see Setup function above to see file creation
+  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see CMakeLists.txt to see how this change to valid path
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
