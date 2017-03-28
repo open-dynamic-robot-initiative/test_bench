@@ -9,7 +9,7 @@
 exec python $0 ${1+"$@"}
 """
 
-from ci_example.pid import get_ros_params_pid
+from ci_example_python.pid import get_ros_params_pid
 
 current_position = 1
 current_velocity = 0.1

@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ci_example_python) 
 
-
 # the only annoying thing with python is the need to have python libraries either installed or
 # with their path added to PYTHONPATH
 # catkin helps with this using the following approach:
