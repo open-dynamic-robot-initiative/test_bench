@@ -2,7 +2,7 @@
 
 import unittest
 import rospy
-import ci_example.pid as PID
+import ci_example_python.pid as PID
 
 
 # see CMakeLists.txt in root folder to see how to activate these tests
