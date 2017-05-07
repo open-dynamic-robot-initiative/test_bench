@@ -11,11 +11,11 @@
   <build_depend>roscpp</build_depend>
   <build_depend>rostest</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>YAML_CPP</build_depend>
+  <build_depend>yaml_cpp</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>YAML_CPP</run_depend>
+  <run_depend>yaml_cpp</run_depend>
 
   <export>
   </export>

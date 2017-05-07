@@ -26,7 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rostest
   std_msgs
-  YAML_CPP
+  yaml_cpp
 )
 
 # the find_package command created the ${catkin_INCLUDE_DIRS} cmake variable
@@ -49,7 +49,7 @@ target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 catkin_package(
  LIBRARIES gains_configuration # exporting the gains_configuration library (libs and executable built in other catkin package will be able to link against them)
  INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
- CATKIN_DEPENDS roscpp std_msgs YAML_CPP 
+ CATKIN_DEPENDS roscpp std_msgs yaml_cpp 
 )
 
 
