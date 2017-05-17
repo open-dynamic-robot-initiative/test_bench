@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>ci_doxygen_child_cpp</name>
+  <version>1.0.0</version>
+  <description>example of doxygen documentation referring to another catkin package</description>
+  <author email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</author>
+  <maintainer email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>ci_example_cpp</build_depend>
+  <run_depend>ci_example_cpp</run_depend>
+
+  <export>
+  </export>
+</package>

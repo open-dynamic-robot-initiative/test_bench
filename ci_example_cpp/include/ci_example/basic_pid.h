@@ -14,8 +14,6 @@
 #define ROSPARAM_KD "gains_kd"
 #define ROSPARAM_KI "gains_ki"
 
-using namespace std;
-
 namespace ci_example {
 
   /*! virtual object describing the function concrete configuration objects should present */

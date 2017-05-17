@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ci_example_cpp) 
 
-# requred to use std::shared_ptr in code
+# required to use std::shared_ptr in code
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 
@@ -47,7 +47,7 @@ target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 
 # this package exports its include folder and its libraries for other catkin packages to enjoy
 catkin_package(
- LIBRARIES gains_configuration # exporting the gains_configuration library (libs and executable built in other catkin package will be able to link against them)
+ LIBRARIES basic_pid # exporting the basic_pid library (libs and executable built in other catkin package will be able to link against them)
  INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
  CATKIN_DEPENDS roscpp std_msgs yaml_cpp 
 )
@@ -143,3 +143,33 @@ target_link_libraries(ci_example_ros basic_pid)
 # in ./bin. Therefore we install it in <root>/demos/bin and the executable have to find themselves in the same folder.
 # (installation will occurs when "catkin_make install" is called)
 install(TARGETS ci_example_ros RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/demos/bin) 
+
+
+
+##########################################
+#         building documentation         #
+##########################################
+
+# typically, a simple way to create documentation is to 
+# have a Doxygen file, and type "doxygen" in a terminal
+# but in order to manage dependencies between packages, we do something more involved
+# for example the documentation of the package ci_doxygen_child (in same git repo) 
+# will refer to code built in this ci_example_cpp project
+# see ci_doxygen_child for more info
+
+if(BUILD_DOCUMENTATION)
+  message(STATUS "building doxygen documentation for ${PROJECT_NAME}")
+  FIND_PACKAGE(Doxygen)
+  if (NOT DOXYGEN_FOUND)
+    message(FATAL_ERROR
+      "Doxygen is needed to build the documentation. Please install it correctly")
+  endif()
+# PROJECT_BINARY_DIR is a variable that contains the path to Workspace/build/<proj_parent/proj_child>
+# below will generate Doxyfile from the Doxyfile.in, which is a template refering to ci_example_cpp (See file content)
+# (this assumes ci_example_cpp has a similar setting, which is the case)
+configure_file(Doxyfile.in ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
+# the doxygen target is generated
+add_custom_target (${PROJECT_NAME}_doc ALL
+COMMAND ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
+SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
+endif()

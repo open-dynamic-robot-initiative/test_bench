@@ -1,15 +1,16 @@
-# see: https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/how-to-generate-documentation
+# see CMakeLists.txt for details
 
-PROJECT_NAME           = "continuous integration example (C++)"
+PROJECT_NAME           = "ci_doxygen_child"
 OUTPUT_DIRECTORY       = doc
 JAVADOC_AUTOBRIEF      = YES
 TAB_SIZE               = 4
 EXTRACT_ALL            = NO
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
-INPUT                  = ./include/ci_example ./demos ./tests ./src/demos
+INPUT                  = @PROJECT_SOURCE_DIR@/include/ci_doxygen_child
 FILE_PATTERNS          = *.h \
                          *.hpp \
 			 *.cpp \
 RECURSIVE              = YES
 GENERATE_LATEX         = NO
+TAGFILES       = @ci_example_cpp_BINARY_DIR@/ci_example_cpp.tag=@ci_example_cpp_BINARY_DIR@/html
