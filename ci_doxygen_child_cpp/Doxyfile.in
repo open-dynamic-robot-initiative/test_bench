@@ -13,4 +13,4 @@ FILE_PATTERNS          = *.h \
 			 *.cpp \
 RECURSIVE              = YES
 GENERATE_LATEX         = NO
-TAGFILES       = @ci_example_cpp_BINARY_DIR@/ci_example_cpp.tag=@ci_example_cpp_BINARY_DIR@/html
+TAGFILES       = @ci_example_cpp_BINARY_DIR@/ci_example_cpp.tag=@ci_example_cpp_BINARY_DIR@/doc/html
