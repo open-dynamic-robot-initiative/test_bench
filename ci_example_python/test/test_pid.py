@@ -73,7 +73,7 @@ class PID_TESTCASE(unittest.TestCase):
         self.assertEqual(force_3,force_4)
 
 
-    # testing force is zero if already at target
+        # testing force is zero if already at target
         class config:
             kp,kd,ki = 1,1,1
         position = 1
@@ -84,7 +84,7 @@ class PID_TESTCASE(unittest.TestCase):
         force = pid.compute(position,velocity,position_target,delta_time)
         self.assertEqual(force,0)
 
-    # testing the controller pushes in the right direction
+        # testing the controller pushes in the right direction
         class config:
             kp,kd,ki = 1,1,0
         position = 0
