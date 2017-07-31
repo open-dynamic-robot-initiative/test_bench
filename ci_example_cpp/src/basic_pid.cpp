@@ -11,8 +11,6 @@
 
 namespace ci_example {
 
- this is an invalid statement in c++, put here with the purpose to test continuous integration
-
 
   // --------------------------- File Configuration --------------------------- // 
 
