@@ -26,8 +26,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rostest
   std_msgs
-  yaml_cpp
+  mpi_cmake_modules
 )
+
+# Find some none-catkin dependencies
+add_required_dependency("yaml-cpp >= 0.5")
 
 # the find_package command created the ${catkin_INCLUDE_DIRS} cmake variable
 # it contains the path to all header folders exported by the package found
@@ -49,7 +52,7 @@ target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 catkin_package(
  LIBRARIES basic_pid # exporting the basic_pid library (libs and executable built in other catkin package will be able to link against them)
  INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
- CATKIN_DEPENDS roscpp std_msgs yaml_cpp 
+ CATKIN_DEPENDS roscpp std_msgs 
 )
 
 
@@ -72,6 +75,8 @@ catkin_add_gtest(ci_example_ut
   tests/ci_example_ut.cpp
 )
 target_link_libraries(ci_example_ut basic_pid)
+# Use the none-catkin dependencies
+pkg_config_use_dependency(ci_example_ut yaml-cpp)
 # one of the test requires to read a file in the config folder.
 # here we ask the preprocessor to replace in the source TEST_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
@@ -94,6 +99,8 @@ add_rostest_gtest(ci_example_rostest
   tests/main.cpp )
 target_link_libraries(ci_example_rostest
   ${catkin_LIBRARIES}  basic_pid)
+# Use the none-catkin dependencies
+pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 
 ####################################################################################
 #                 how to name your demo executables ?                              #
@@ -118,6 +125,8 @@ target_link_libraries(ci_example_rostest
 # automatically by the continuous integration script. e.g:
 add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
 target_link_libraries(ci_example_demo basic_pid)
+# Use the none-catkin dependencies
+pkg_config_use_dependency(ci_example_demo yaml-cpp)
 
 ### requires path to a config file ###
 # This demo requires to read a file in the config folder
@@ -125,6 +134,8 @@ target_link_libraries(ci_example_demo basic_pid)
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 add_executable(ci_example_abs_path_config_demo src/demos/ci_example_abs_path_config_demo.cpp)
 target_link_libraries(ci_example_abs_path_config_demo basic_pid)
+# Use the none-catkin dependencies
+pkg_config_use_dependency(ci_example_abs_path_config_demo yaml-cpp)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
@@ -139,6 +150,8 @@ set_target_properties(ci_example_abs_path_config_demo PROPERTIES
 # does not descend into subfolders)
 add_executable(ci_example_ros src/demos/ci_example_ros.cpp)
 target_link_libraries(ci_example_ros basic_pid)
+# Use the none-catkin dependencies
+pkg_config_use_dependency(ci_example_ros yaml-cpp)
 # the sh script (ci_example_ros_demo) in demos will search the ci_example_ros executable
 # in ./bin. Therefore we install it in <root>/demos/bin and the executable have to find themselves in the same folder.
 # (installation will occurs when "catkin_make install" is called)
