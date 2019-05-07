@@ -159,9 +159,10 @@ install(TARGETS ci_example_ros RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/d
 
 
 
-##########################################
-#         building documentation         #
-##########################################
+##########################
+# building documentation #
+##########################
+build_doxygen_documentation()
 
 # typically, a simple way to create documentation is to 
 # have a Doxygen file, and type "doxygen" in a terminal
@@ -169,20 +170,3 @@ install(TARGETS ci_example_ros RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/d
 # for example the documentation of the package ci_doxygen_child (in same git repo) 
 # will refer to code built in this ci_example_cpp project
 # see ci_doxygen_child for more info
-
-if(BUILD_DOCUMENTATION)
-  message(STATUS "building doxygen documentation for ${PROJECT_NAME}")
-  FIND_PACKAGE(Doxygen)
-  if (NOT DOXYGEN_FOUND)
-    message(FATAL_ERROR
-      "Doxygen is needed to build the documentation. Please install it correctly")
-  endif()
-# PROJECT_BINARY_DIR is a variable that contains the path to Workspace/build/<proj_parent/proj_child>
-# below will generate Doxyfile from the Doxyfile.in, which is a template refering to ci_example_cpp (See file content)
-# (this assumes ci_example_cpp has a similar setting, which is the case)
-configure_file(Doxyfile.in ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
-# the doxygen target is generated
-add_custom_target (${PROJECT_NAME}_doc ALL
-COMMAND ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
-SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
-endif()

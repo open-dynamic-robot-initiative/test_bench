@@ -28,19 +28,7 @@ catkin_package(
 # the documentation should not be build by default, but only 
 # if the BUILD_DOCUMENTATION option is used, i.e. 'catkin_make -DBUILD_DOCUMENTATION=ON'
 # (the continuous integration job will generate the doc this way)
-if(BUILD_DOCUMENTATION)
-  message(STATUS "building doxygen documentation for ${PROJECT_NAME}")
-  FIND_PACKAGE(Doxygen)
-  if (NOT DOXYGEN_FOUND)
-    message(FATAL_ERROR
-      "Doxygen is needed to build the documentation. Please install it correctly")
-  endif()
-# PROJECT_BINARY_DIR is a variable that contains the path to Workspace/build/<proj_parent/proj_child>
-# below will generate Doxyfile from the Doxyfile.in, which is a template refering to ci_example_cpp (See file content)
-# (this assumes ci_example_cpp has a similar setting, which is the case)
-configure_file(Doxyfile.in ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
-# the doxygen target is generated
-add_custom_target (${PROJECT_NAME}_doc ALL
-COMMAND ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
-SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
-endif()
+##########################
+# building documentation #
+##########################
+build_doxygen_documentation()
