@@ -1,6 +1,11 @@
 /**
  * @file ci_example_demo.cpp
- * example of a simple demo suitable for continuous integration
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ * 
+ * @brief example of a simple demo suitable for continuous integration
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
  */
 

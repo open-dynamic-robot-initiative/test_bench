@@ -1,3 +1,10 @@
+/**
+ * @file doxygen_child.cpp
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ */
 #include "ci_doxygen_child/doxygen_child.h"
 
 namespace ci_doxygen_child {

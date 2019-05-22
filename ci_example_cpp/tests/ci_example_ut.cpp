@@ -1,10 +1,13 @@
 /**
  * @file ci_example_ut.cpp
- * example of unit tests
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ * 
+ * @brief example of unit tests
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-unit-tests
  */
-
-
 
 
 #include "ci_example/basic_pid.h"

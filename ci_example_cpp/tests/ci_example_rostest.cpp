@@ -1,9 +1,13 @@
 /**
  * @file ci_example_rostest.cpp
- * example of unit tests that use ROS
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ * 
+ * @brief example of unit tests that use ROS
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-use-ros-in-unit-tests
  */
-
 
 #include "ci_example/basic_pid.h"
 #include <gtest/gtest.h>

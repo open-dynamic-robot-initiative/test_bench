@@ -1,3 +1,11 @@
+/**
+ * @file basic_pid.cpp
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ */
+
 #include "ci_example/basic_pid.h" // where DEFAULT_KP,KD and KI are declared
 
 

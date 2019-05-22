@@ -1,3 +1,11 @@
+/**
+ * @file basic_pid.h
+ * @author Vincent Berenz
+ * @license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @date 2019-05-22
+ */
+
 #include "ros/ros.h"
 #include "ros/master.h"
 #include <memory>
