@@ -59,3 +59,7 @@ endif()
 # note: the python script will call first "catkin_make" and "source ./devel/setup.bash"
 # to ensure PYTHONPATH is set correctly. See explanations at beginning of this file.
 
+##########################
+# building documentation #
+##########################
+build_doxygen_documentation()
