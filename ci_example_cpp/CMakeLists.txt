@@ -119,6 +119,9 @@ pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 #         examples of executables              
 ####################################################################################
 
+# executable will be found in <workspace>/devel/lib/ci_example_cpp/ after
+# calling catkin_make
+
 ### simple example ###
 add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
 target_link_libraries(ci_example_demo ci_example)
@@ -136,6 +139,7 @@ pkg_config_use_dependency(ci_example_abs_path_config_demo yaml-cpp)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
+
 ##########################
 # building documentation #
 ##########################
@@ -144,16 +148,24 @@ build_doxygen_documentation()
 # typically, a simple way to create documentation is to 
 # have a Doxygen file, and type "doxygen" in a terminal
 # but in order to manage dependencies between packages, we do something more involved
-# for example the documentation of the package ci_doxygen_child (in same git repo) 
-# will refer to code built in this ci_example_cpp project
-# see ci_doxygen_child for more info
+# compile with : catkin_make -DBUILD_DOCUMENTATION=ON,
+# the documentation will be created in <workspace>/devel/share/ci_example_cpp/doc/
 
 
 ################################
 # python bindings with pybind11#
 ################################
-#pybind11_add_module(ci_example src/python_bindings.cpp)
-#target_link_libraries(ci_example PRIVATE basic_pid ${catkin_LIBRARIES})
-#set_target_properties(ci_example PROPERTIES
-#  LIBRARY_OUTPUT_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_PYTHON_DESTINATION})
-#install(TARGETS ci_example DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION})
+pybind11_add_module(basic_pid srcpy/python_bindings.cpp)
+target_link_libraries(basic_pid PRIVATE ci_example ${catkin_LIBRARIES})
+pkg_config_use_dependency(basic_pid yaml-cpp)
+set_target_properties(basic_pid PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_PYTHON_DESTINATION})
+install(TARGETS ci_example DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION})
+
+# this will create a module of name "basic_pid". After calling catkin_make
+# and sourcing <workspace>/devel/setup.bash, the following should work in python:
+
+# import basic_pid
+# p = basic_pid.PID()
+# p.compute(1,1,1,1)
+# p.reset_integral()
