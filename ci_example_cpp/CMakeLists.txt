@@ -8,12 +8,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 ####################################################################################
 #                 ensuring path to libraries are set during install                #
 ####################################################################################
-# if some demo are required to be run from the install folder
-# (i.e. the folder created when "catkin_make install" is called)
 # the commands below are required to make sure the binaries may still link against
-# their required libraries after install 
+# their required libraries after install (i.e. after call to catkin_make install)
 # note: has to be called before add_executable
-# see somewhere below for demo requiring installation
 set(CMAKE_SKIP_BUILD_RPATH  FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)                                                
@@ -41,30 +38,30 @@ add_required_dependency("yaml-cpp >= 0.5")
 # may find. See the catkin_package command somewhere below.
 include_directories( include ${catkin_INCLUDE_DIRS}  )
 
-# creating the library and linking it against the libraries this project depends on
-# the ${catkin_LIBRARIES} is a cmake variable that was created by the find_package command
-# above. It contains all the libraries exported by the package found.
-# in turn, this package exports the library it created so that other catkin project
+# Creating the library and linking it against the libraries this project depends on.
+# The ${catkin_LIBRARIES} is a cmake variable that was created by the find_package command
+# above. It contains all the libraries exported by the package found (here roscc,rostest,std_msgs,...).
+# In turn, this package exports the library it created so that other catkin project
 # may link against it. See the catkin_package command somewhere below.
-add_library( basic_pid SHARED
+add_library( ci_example SHARED
   src/gains_configuration.cpp
   src/default_configuration.cpp
   src/file_configuration.cpp
   src/rosparameters_configuration.cpp
   src/pid.cpp )
-target_link_libraries(basic_pid ${catkin_LIBRARIES} )
+target_link_libraries(ci_example ${catkin_LIBRARIES} )
 
 # this package exports its include folder and its libraries for other catkin packages to enjoy
 catkin_package(
- LIBRARIES basic_pid # exporting the basic_pid library (libs and executable built in other catkin package will be able to link against them)
+ LIBRARIES ci_example # exporting the ci_example library (libs and executable built in other catkin package will be able to link against them)
  INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
  CATKIN_DEPENDS roscpp std_msgs 
 )
 
-
 # getting the path to the config folder and storing it in the CONFIG_PATH variable
 # will be useful to set path to config files into the sources of demos and tests
 get_filename_component(CONFIG_PATH config ABSOLUTE)
+
 
 ####################################################################################
 #                       example of unit tests                                      #
@@ -80,7 +77,7 @@ catkin_add_gtest(ci_example_ut
   tests/main.cpp
   tests/ci_example_ut.cpp
 )
-target_link_libraries(ci_example_ut basic_pid)
+target_link_libraries(ci_example_ut ci_example)
 # Use the none-catkin dependencies
 pkg_config_use_dependency(ci_example_ut yaml-cpp)
 # one of the test requires to read a file in the config folder.
@@ -88,6 +85,7 @@ pkg_config_use_dependency(ci_example_ut yaml-cpp)
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 set_target_properties(ci_example_ut PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
+
 
 ####################################################################################
 #               example of unit tests that use ROS (c++)                           #
@@ -104,7 +102,7 @@ add_rostest_gtest(ci_example_rostest
   tests/ci_example_rostest.cpp # source code of test that uses ros parameter server
   tests/main.cpp )
 target_link_libraries(ci_example_rostest
-  ${catkin_LIBRARIES}  basic_pid)
+  ${catkin_LIBRARIES}  ci_example)
 # Use the none-catkin dependencies
 pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 
@@ -123,7 +121,7 @@ pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 
 ### simple example ###
 add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
-target_link_libraries(ci_example_demo basic_pid)
+target_link_libraries(ci_example_demo ci_example)
 # Use the none-catkin dependencies
 pkg_config_use_dependency(ci_example_demo yaml-cpp)
 
@@ -132,7 +130,7 @@ pkg_config_use_dependency(ci_example_demo yaml-cpp)
 # here we ask the preprocessor to replace in the source TEST_PID_GAINS_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 add_executable(ci_example_abs_path_config_demo src/demos/ci_example_abs_path_config_demo.cpp)
-target_link_libraries(ci_example_abs_path_config_demo basic_pid)
+target_link_libraries(ci_example_abs_path_config_demo ci_example)
 # Use the none-catkin dependencies
 pkg_config_use_dependency(ci_example_abs_path_config_demo yaml-cpp)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
