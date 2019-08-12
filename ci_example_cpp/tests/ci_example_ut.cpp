@@ -10,7 +10,10 @@
  */
 
 
-#include "ci_example/basic_pid.h"
+#include "ci_example/pid.h"
+#include "ci_example/file_configuration.h"
+#include <iostream>
+#include <fstream>
 #include "gtest/gtest.h"
 
 
@@ -87,21 +90,12 @@ TEST_F(PID_tests, configurations_same_results_test){
   double position_target=2;
   double delta_time=0.01;
 
-  // will be used to host the configurations
-  // note: a shared pointer is same thing as a pointer, except 
-  // that is manages the memory automatically. It does not need to be deleted.
-  std::shared_ptr<ci_example::Gains_configuration> config;
-
-  // because config is a pointer to a Gains_configuration, and an instance 
-  // of Default_configuration is, through inheritance, also an instance of
-  // Gains_configuration, this works 
-  config.reset(new ci_example::Default_configuration());
-  ci_example::PID controller_default(config);
+  ci_example::Default_configuration default_config;
+  ci_example::PID controller_default(default_config);
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 
-  // an instance of File_configuration is also an instance of Gains_configuration
-  config.reset(new ci_example::File_configuration(YAML_CONFIG_FILE));
-  ci_example::PID controller_file(config);
+  ci_example::File_configuration file_config(YAML_CONFIG_FILE);
+  ci_example::PID controller_file(file_config);
   double force_file = controller_file.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force_default,force_file); 
@@ -127,9 +121,9 @@ TEST_F(PID_tests, integral){
   double position_target=2;
   double delta_time=0.01;
 
-  std::shared_ptr<ci_example::PID> controller = ci_example::get_default_pid();
-  double force_1 = controller->compute(position,velocity,position_target,delta_time);
-  double force_2 = controller->compute(position,velocity,position_target,delta_time);
+  ci_example::PID& controller = ci_example::get_default_pid();
+  double force_1 = controller.compute(position,velocity,position_target,delta_time);
+  double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
   ASSERT_NE(force_1,force_2);
 
@@ -145,15 +139,15 @@ TEST_F(PID_tests, reset_integral){
   double delta_time=0.01;
 
   // running pid and integrating
-  std::shared_ptr<ci_example::PID> controller = ci_example::get_default_pid();
-  double force_1 = controller->compute(position,velocity,position_target,delta_time);
-  double force_2 = controller->compute(position,velocity,position_target,delta_time);
+  ci_example::PID& controller = ci_example::get_default_pid();
+  double force_1 = controller.compute(position,velocity,position_target,delta_time);
+  double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
   // reset integral
-  controller->reset_integral();
+  controller.reset_integral();
 
   // run controller again
-  double force_reset = controller->compute(position,velocity,position_target,delta_time);
+  double force_reset = controller.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force_1,force_reset);
 
@@ -168,8 +162,8 @@ TEST_F(PID_tests, zero_force_at_target){
   double position_target=position;
   double delta_time=0.01;
 
-  std::shared_ptr<ci_example::PID> controller = ci_example::get_default_pid();
-  double force = controller->compute(position,velocity,position_target,delta_time);
+  ci_example::PID& controller = ci_example::get_default_pid();
+  double force = controller.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force,0);
 
@@ -184,24 +178,24 @@ TEST_F(PID_tests, right_direction){
   double position_target=1;
   double delta_time=0.01;
 
-  std::shared_ptr<ci_example::PID> controller = ci_example::get_default_pid();
-  double force = controller->compute(position,velocity,position_target,delta_time);
+  ci_example::PID& controller = ci_example::get_default_pid();
+  double force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_GT(force,0);
 
-  controller->reset_integral();
+  controller.reset_integral();
   position_target=-1;
-  force = controller->compute(position,velocity,position_target,delta_time);
+  force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_LT(force,0);
 
-  controller->reset_integral();
+  controller.reset_integral();
   position_target=position;
   velocity=-1;
-  force = controller->compute(position,velocity,position_target,delta_time);
+  force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_GT(force,0);
     
-  controller->reset_integral();
+  controller.reset_integral();
   velocity=1;
-  force = controller->compute(position,velocity,position_target,delta_time);
+  force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_LT(force,0);
   
 
