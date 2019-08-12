@@ -27,6 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
   rostest
   std_msgs
   mpi_cmake_modules
+  pybind11_catkin
 )
 
 # Find some none-catkin dependencies
@@ -45,7 +46,12 @@ include_directories( include ${catkin_INCLUDE_DIRS}  )
 # above. It contains all the libraries exported by the package found.
 # in turn, this package exports the library it created so that other catkin project
 # may link against it. See the catkin_package command somewhere below.
-add_library(basic_pid SHARED src/basic_pid.cpp)
+add_library( basic_pid SHARED
+  src/gains_configuration.cpp
+  src/default_configuration.cpp
+  src/file_configuration.cpp
+  src/rosparameters_configuration.cpp
+  src/pid.cpp )
 target_link_libraries(basic_pid ${catkin_LIBRARIES} )
 
 # this package exports its include folder and its libraries for other catkin packages to enjoy
@@ -112,17 +118,10 @@ pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 # This is *required*
 
 ####################################################################################
-#         examples of demo supported by continuous integration (c++)               #
+#         examples of executables              
 ####################################################################################
 
-# what is the difference between a demo and unit tests ?
-# unit tests are there to check availability of low grain functionalities
-# demos are higher level and can be used for testing as well, but their main
-# purpose are to provide users with clear example of usage. 
-
 ### simple example ###
-# any executable with name <catkin_package_name>_<whatever>_<demo> will be run 
-# automatically by the continuous integration script. e.g:
 add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
 target_link_libraries(ci_example_demo basic_pid)
 # Use the none-catkin dependencies
@@ -139,26 +138,6 @@ pkg_config_use_dependency(ci_example_abs_path_config_demo yaml-cpp)
 set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
-### requires a complex setup ###
-# if a demo requires a special setup, then the executable is not start directly,
-# but start via a script that performs the setup/cleaning.
-# in this case ci_example_ros_demo script starts ros, place info in the parameter
-# server, call the demo and kill roscore
-# in such case the demo should be in <root>/demos. Any file in <root>/demos will be considered as a demo to be executed
-# by the continuous integration script (independently on how it is named). If a demo needs a binary, this binary should be
-# installed using a relative path the demo will understand, for example <root>/demos/bin (the continuous integration script
-# does not descend into subfolders)
-add_executable(ci_example_ros src/demos/ci_example_ros.cpp)
-target_link_libraries(ci_example_ros basic_pid)
-# Use the none-catkin dependencies
-pkg_config_use_dependency(ci_example_ros yaml-cpp)
-# the sh script (ci_example_ros_demo) in demos will search the ci_example_ros executable
-# in ./bin. Therefore we install it in <root>/demos/bin and the executable have to find themselves in the same folder.
-# (installation will occurs when "catkin_make install" is called)
-install(TARGETS ci_example_ros RUNTIME DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/demos/bin) 
-
-
-
 ##########################
 # building documentation #
 ##########################
@@ -170,3 +149,13 @@ build_doxygen_documentation()
 # for example the documentation of the package ci_doxygen_child (in same git repo) 
 # will refer to code built in this ci_example_cpp project
 # see ci_doxygen_child for more info
+
+
+################################
+# python bindings with pybind11#
+################################
+#pybind11_add_module(ci_example src/python_bindings.cpp)
+#target_link_libraries(ci_example PRIVATE basic_pid ${catkin_LIBRARIES})
+#set_target_properties(ci_example PROPERTIES
+#  LIBRARY_OUTPUT_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_PYTHON_DESTINATION})
+#install(TARGETS ci_example DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION})

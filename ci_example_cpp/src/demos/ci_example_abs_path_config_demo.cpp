@@ -9,7 +9,8 @@
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
  */
 
-#include "ci_example/basic_pid.h" 
+#include "ci_example/pid.h"
+#include "ci_example/file_configuration.h" 
 #include <stdexcept>
 
 void run_demo(){
@@ -28,7 +29,7 @@ void run_demo(){
 
   // Gains_configuration is the base class for all configuration, including
   // the one read from yaml file, as done here. 
-  std::shared_ptr<ci_example::Gains_configuration> gains(new ci_example::File_configuration(config_file_path));
+  ci_example::File_configuration gains = ci_example::File_configuration(config_file_path);
 
   // printing to standard output the gains
   std::cout << "gains read from configuration file:" << std::endl;
@@ -36,8 +37,8 @@ void run_demo(){
 
   // checking reading the config file when fine
   // if not, throwing corresponding error
-  if (gains->has_error()){
-    throw std::runtime_error(gains->get_error());
+  if (gains.has_error()){
+    throw std::runtime_error(gains.get_error());
   }
 
   /* creating and running the controller */
