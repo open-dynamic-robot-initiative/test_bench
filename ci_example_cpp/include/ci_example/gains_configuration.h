@@ -10,6 +10,8 @@ namespace ci_example {
   class Gains_configuration {
     
   public:
+
+    virtual ~Gains_configuration(){}
     
     virtual double get_kp() const =0; /**< returns desired kp */
     virtual double get_kd() const =0; /**< returns desired kd */

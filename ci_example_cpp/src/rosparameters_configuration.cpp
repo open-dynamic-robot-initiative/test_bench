@@ -20,7 +20,7 @@ namespace ci_example {
     ros::NodeHandle nh;
     std::vector<std::string> parameters = {ROSPARAM_KP,ROSPARAM_KD,ROSPARAM_KI};
     std::vector<double*> gains = {&(this->kp),&(this->kd),&(this->ki)};
-    for(int i=0;i<parameters.size();i++){
+    for(unsigned int i=0;i<parameters.size();i++){
       bool success = get_parameter(nh,parameters[i],*(gains[i]));
       if (!success) {
 	this->error = true;

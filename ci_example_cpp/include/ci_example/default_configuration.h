@@ -14,6 +14,8 @@ namespace ci_example {
   class Default_configuration : public Gains_configuration {
     
   public:
+
+    ~Default_configuration(){}
     
     double get_kp() const;
     double get_kd() const;
