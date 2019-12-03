@@ -9,7 +9,7 @@
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-use-ros-in-unit-tests
  */
 
-#include "ci_example/rosparameters_configuration.h"
+#include "ci_example_cpp/rosparameters_configuration.hpp"
 #include <gtest/gtest.h>
 
 

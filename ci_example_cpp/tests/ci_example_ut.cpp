@@ -10,8 +10,8 @@
  */
 
 
-#include "ci_example/pid.h"
-#include "ci_example/file_configuration.h"
+#include "ci_example_cpp/pid.hpp"
+#include "ci_example_cpp/file_configuration.hpp"
 #include <iostream>
 #include <fstream>
 #include "gtest/gtest.h"
@@ -141,7 +141,6 @@ TEST_F(PID_tests, reset_integral){
   // running pid and integrating
   ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
   double force_1 = controller.compute(position,velocity,position_target,delta_time);
-  double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
   // reset integral
   controller.reset_integral();
