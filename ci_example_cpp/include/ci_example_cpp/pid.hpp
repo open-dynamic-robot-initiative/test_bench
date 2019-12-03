@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ci_example/default_configuration.h"
+#include "ci_example_cpp/default_configuration.hpp"
 #include <memory>
 #include <vector>
 
-namespace ci_example {
+namespace ci_example_cpp {
 
 
   /*! simple 1D pid controller */
@@ -12,7 +12,15 @@ namespace ci_example {
 
   public:
     
+    /**
+     * @brief Construct a default PID object using the DefaultConfiguration
+     */
     PID();
+    /**
+     * @brief Construct a new PID object using a user provided configuration.
+     * 
+     * @param configuration
+     */
     PID(const Gains_configuration& configuration);
     ~PID();
     

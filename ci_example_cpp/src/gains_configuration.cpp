@@ -1,7 +1,7 @@
-#include "ci_example/gains_configuration.h"
+#include "ci_example_cpp/gains_configuration.hpp"
 
 
-namespace ci_example {
+namespace ci_example_cpp {
 
   
   void print_configuration(const Gains_configuration& configuration){

@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-namespace ci_example {
+namespace ci_example_cpp {
 
   
   /*! virtual object describing the function concrete configuration objects should present */

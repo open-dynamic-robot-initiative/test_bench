@@ -1,7 +1,7 @@
 /**
  * @file ci_example_ut.cpp
  * @author Vincent Berenz
- * @license License BSD-3-Clause
+ * license License BSD-3-Clause
  * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
  * @date 2019-05-22
  * 
@@ -48,7 +48,7 @@ protected:
 /* ******************************* testing Default_configuration ******************************* */
 
 TEST_F(PID_tests, default_configuration_test){
-  ci_example::Default_configuration config;
+  ci_example_cpp::Default_configuration config;
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
@@ -58,14 +58,14 @@ TEST_F(PID_tests, default_configuration_test){
 /* ******************************* testing File_configuration ******************************* */
 
 TEST_F(PID_tests, file_configuration_ok_test){
-  ci_example::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see CMakeLists.txt to see how this change to valid path
+  ci_example_cpp::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see CMakeLists.txt to see how this change to valid path
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
 }
 
 TEST_F(PID_tests, file_configuration_fail_test){
-  ci_example::File_configuration config("None existing file"); 
+  ci_example_cpp::File_configuration config("None existing file"); 
   ASSERT_EQ(config.has_error(),true); 
 }
 
@@ -74,7 +74,7 @@ TEST_F(PID_tests, file_configuration_fail_test){
 /* ******************************* with default configuration file ******************************* */
 
 TEST_F(PID_tests, read_config_file_test){
-  ci_example::File_configuration config(YAML_CONFIG_FILE); 
+  ci_example_cpp::File_configuration config(YAML_CONFIG_FILE); 
   ASSERT_EQ(config.has_error(),false);
 }
 
@@ -90,12 +90,12 @@ TEST_F(PID_tests, configurations_same_results_test){
   double position_target=2;
   double delta_time=0.01;
 
-  ci_example::Default_configuration default_config;
-  ci_example::PID controller_default(default_config);
+  ci_example_cpp::Default_configuration default_config;
+  ci_example_cpp::PID controller_default(default_config);
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 
-  ci_example::File_configuration file_config(YAML_CONFIG_FILE);
-  ci_example::PID controller_file(file_config);
+  ci_example_cpp::File_configuration file_config(YAML_CONFIG_FILE);
+  ci_example_cpp::PID controller_file(file_config);
   double force_file = controller_file.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force_default,force_file); 
@@ -121,7 +121,7 @@ TEST_F(PID_tests, integral){
   double position_target=2;
   double delta_time=0.01;
 
-  ci_example::PID& controller = ci_example::get_default_pid();
+  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
   double force_1 = controller.compute(position,velocity,position_target,delta_time);
   double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
@@ -139,7 +139,7 @@ TEST_F(PID_tests, reset_integral){
   double delta_time=0.01;
 
   // running pid and integrating
-  ci_example::PID& controller = ci_example::get_default_pid();
+  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
   double force_1 = controller.compute(position,velocity,position_target,delta_time);
   double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
@@ -162,7 +162,7 @@ TEST_F(PID_tests, zero_force_at_target){
   double position_target=position;
   double delta_time=0.01;
 
-  ci_example::PID& controller = ci_example::get_default_pid();
+  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
   double force = controller.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force,0);
@@ -178,7 +178,7 @@ TEST_F(PID_tests, right_direction){
   double position_target=1;
   double delta_time=0.01;
 
-  ci_example::PID& controller = ci_example::get_default_pid();
+  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
   double force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_GT(force,0);
 

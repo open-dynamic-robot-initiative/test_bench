@@ -1,7 +1,7 @@
 /**
- * @file ci_example_abs_path_config_demo.cpp
+ * @file demo_pid_load_from_file.cpp
  * @author Vincent Berenz
- * @license License BSD-3-Clause
+ * license License BSD-3-Clause
  * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
  * @date 2019-05-22
  * 
@@ -9,17 +9,21 @@
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
  */
 
-#include "ci_example/pid.h"
-#include "ci_example/file_configuration.h" 
+#include "ci_example_cpp/pid.hpp"
+#include "ci_example_cpp/file_configuration.hpp" 
 #include <stdexcept>
 
+/**
+ * @brief Run some demo using a YAML file as configuration for the PID
+ * controller.
+ */
 void run_demo(){
 
   /* displaying what this demo is about */
   std::cout << 
     "This demo shows how to create an executable run by the continuous integration\n" <<
     "which depends on a configuration file. In the solution showed here, the absolute path\n" <<
-    "to the configuration file is set during pre-compilation. See code in /demos/ci_example_abs_path_config_demo.cpp\n" <<
+    "to the configuration file is set during pre-compilation. See code in /demos/demo_pid_load_from_file.cpp\n" <<
     "for details\n\n";
   
   /* reading gains (kp,kd,ki) from yaml config */
@@ -29,11 +33,11 @@ void run_demo(){
 
   // Gains_configuration is the base class for all configuration, including
   // the one read from yaml file, as done here. 
-  ci_example::File_configuration gains = ci_example::File_configuration(config_file_path);
+  ci_example_cpp::File_configuration gains = ci_example_cpp::File_configuration(config_file_path);
 
   // printing to standard output the gains
   std::cout << "gains read from configuration file:" << std::endl;
-  ci_example::print_configuration(gains);
+  ci_example_cpp::print_configuration(gains);
 
   // checking reading the config file when fine
   // if not, throwing corresponding error
@@ -44,7 +48,7 @@ void run_demo(){
   /* creating and running the controller */
 
   // PID controller creation
-  ci_example::PID controller(gains);
+  ci_example_cpp::PID controller(gains);
   
   // example of force computation
   double current_position=1;
@@ -59,7 +63,9 @@ void run_demo(){
   
 }
 
-
+/**
+ * @brief Run the demo in a safe environment.
+ */
 int main(){
   
   try {

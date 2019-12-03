@@ -1,6 +1,6 @@
-#include "ci_example/pid.h"
+#include "ci_example_cpp/pid.hpp"
 
-namespace ci_example {
+namespace ci_example_cpp {
 
   PID::PID()
     : integral_(0) {
@@ -42,8 +42,15 @@ namespace ci_example {
   class Default_pid_factory {
 
   public:
+    /** configs_ contains the PID gains */
     static std::vector< std::shared_ptr<Gains_configuration> > configs_;
+    /** List of PID controllers */
     static std::vector< std::shared_ptr<PID> > controllers_;
+    /**
+     * @brief PID controller factory.
+     * 
+     * @return PID& Return a reference to a newly created PID controller.
+     */
     static PID& get(){
       std::shared_ptr<Gains_configuration> configuration(new Default_configuration());
       std::shared_ptr<PID> controller(new PID(*configuration));
@@ -54,16 +61,11 @@ namespace ci_example {
     
   };
 
-  
   std::vector< std::shared_ptr<Gains_configuration> > Default_pid_factory::configs_;
   std::vector< std::shared_ptr<PID> > Default_pid_factory::controllers_;
-
-
-  
+ 
   PID& get_default_pid(){
     return Default_pid_factory::get();
   }
-
-  
 
 }

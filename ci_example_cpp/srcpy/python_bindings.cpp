@@ -1,8 +1,8 @@
 #include <pybind11/pybind11.h>
-#include "ci_example/pid.h"
+#include "ci_example_cpp/pid.hpp"
 
 
-using namespace ci_example;
+using namespace ci_example_cpp;
 
 PYBIND11_MODULE(basic_pid,m) {
 

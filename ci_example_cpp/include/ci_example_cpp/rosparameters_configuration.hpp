@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ci_example/gains_configuration.h"
+#include "ci_example_cpp/gains_configuration.hpp"
 #include "ros/ros.h"
 #include "ros/master.h"
 
@@ -11,7 +11,7 @@
 
 
 
-namespace ci_example {
+namespace ci_example_cpp {
 
 
   /*! Read gains configuration from the ros parameter server*/
@@ -27,16 +27,23 @@ namespace ci_example {
      */
     RosParameters_configuration();
 
+    /*! get the proportinal gain */
     double get_kp() const;
+    /*! get the derivative gain */
     double get_kd() const;
+    /*! get the integral gain */
     double get_ki() const;
+    /*! Check if there are internal errors */
     bool has_error() const;
+    /*! Get the error messages */
     std::string get_error() const;
 
   private:
-    double kp,kd,ki;
-    std::string error_message;
-    bool error;
+    double kp_; /*!< Proportinal gain. */
+    double kd_; /*!< Derivative gain. */
+    double ki_; /*!< Integral gain. */
+    std::string error_message_; /*!< Internal error message. */
+    bool error_; /*!< True is an error occured. */
 
   };
 

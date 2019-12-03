@@ -1,7 +1,7 @@
 /**
  * @file ci_example_rostest.cpp
  * @author Vincent Berenz
- * @license License BSD-3-Clause
+ * license License BSD-3-Clause
  * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
  * @date 2019-05-22
  * 
@@ -31,7 +31,7 @@ TEST(RosParam_config_test, read_parameters_test){
   nh.setParam(ROSPARAM_KI,3);
 
   // getting corresponding configuration instance
-  ci_example::RosParameters_configuration config;
+  ci_example_cpp::RosParameters_configuration config;
   ASSERT_EQ(1,config.get_kp());
   ASSERT_EQ(2,config.get_kd());
   ASSERT_EQ(3,config.get_ki());

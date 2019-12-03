@@ -1,9 +1,9 @@
-ci_example_cpp {#mainpage}
+ci_example_python {#mainpage}
 ===============
 
 ## What is it
 
-This package contains a set of examples of demos and unit tests in c++ 
+This package contains a set of examples of demos and unit tests in **Python**
 supported by the continuous integration. It also contains the coding guidelines
 setup in the [machines-in-motion](https://wp.nyu.edu/machinesinmotion/) group.
 

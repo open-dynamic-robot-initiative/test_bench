@@ -126,20 +126,20 @@ pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 # calling catkin_make
 
 ### simple example ###
-add_executable(ci_example_demo src/demos/ci_example_demo.cpp)
-target_link_libraries(ci_example_demo ci_example)
+add_executable(demo_pid demos/demo_pid.cpp)
+target_link_libraries(demo_pid ci_example)
 # Use the none-catkin dependencies
-pkg_config_use_dependency(ci_example_demo yaml-cpp)
+pkg_config_use_dependency(demo_pid yaml-cpp)
 
 ### requires path to a config file ###
 # This demo requires to read a file in the config folder
 # here we ask the preprocessor to replace in the source TEST_PID_GAINS_YAML_FILE_PATH to 
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
-add_executable(ci_example_abs_path_config_demo src/demos/ci_example_abs_path_config_demo.cpp)
-target_link_libraries(ci_example_abs_path_config_demo ci_example)
+add_executable(demo_pid_load_from_file demos/demo_pid_load_from_file.cpp)
+target_link_libraries(demo_pid_load_from_file ci_example)
 # Use the none-catkin dependencies
-pkg_config_use_dependency(ci_example_abs_path_config_demo yaml-cpp)
-set_target_properties(ci_example_abs_path_config_demo PROPERTIES 
+pkg_config_use_dependency(demo_pid_load_from_file yaml-cpp)
+set_target_properties(demo_pid_load_from_file PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
 

@@ -1,8 +1,20 @@
-"""@package
-Simple 1D PID controller, along with convenience factory
-"""
+#! /usr/bin/python
+
+##@package ci_example_python
+# 
+# @file pid.py
+# @author Vincent Berenz
+# @author Maximilien Naveau
+# license License BSD-3-Clause
+# @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft.
+# @date 2019-05-22
+# 
+# @brief Simple 1D PID controller, along with convenience factory.
+#
+
 
 import os
+
 
 ## 
 # Configuration object with default values for kp, kd and ki
@@ -28,7 +40,7 @@ class ROS_configuration:
 ## Configuration: path to default configuration file, relative to the pid package
 class Config_file_configuration:
     ## relative path to the default configuration fole
-    relative_path = ".."+os.sep+".."+os.sep+"config"+os.sep+"test_pid_gains.yaml"
+    relative_path = os.path.join("..", "..", "config", "test_pid_gains.yaml")
 
 ## code for simple 1D PID controller
 class PID:
@@ -63,7 +75,7 @@ class PID:
         position_error = position_target - position
         self._integral += delta_time * position_error
         return position_error*self._configuration.kp-velocity*self._configuration.kd+self._integral*self._configuration.ki
-
+    ## Convert the object into a string
     def __str__(self):
         return "PID controller: kp:"+str(self._configuration.kp)+" kd:"+str(self._configuration.kd)+" ki:"+str(self._configuration.ki)
 

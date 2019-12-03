@@ -1,9 +1,9 @@
-#include "ci_example/rosparameters_configuration.h"
+#include "ci_example_cpp/rosparameters_configuration.hpp"
 
 
-namespace ci_example {
+namespace ci_example_cpp {
 
-    static bool get_parameter(const ros::NodeHandle &nh, const std::string &parameter, double &get_value){
+  static bool get_parameter(const ros::NodeHandle &nh, const std::string &parameter, double &get_value){
     ros::Rate wait(10);
     bool success = false;
     while (ros::ok()){
@@ -15,40 +15,40 @@ namespace ci_example {
   }
   
   RosParameters_configuration::RosParameters_configuration(){
-    this->error = false;
-    this->error_message="no error";
+    this->error_ = false;
+    this->error_message_="no error";
     ros::NodeHandle nh;
     std::vector<std::string> parameters = {ROSPARAM_KP,ROSPARAM_KD,ROSPARAM_KI};
-    std::vector<double*> gains = {&(this->kp),&(this->kd),&(this->ki)};
+    std::vector<double*> gains = {&(this->kp_),&(this->kd_),&(this->ki_)};
     for(unsigned int i=0;i<parameters.size();i++){
       bool success = get_parameter(nh,parameters[i],*(gains[i]));
       if (!success) {
-	this->error = true;
-	this->error_message = "roscore shut down before parameter "+parameters[i]+" could be read";
+	this->error_ = true;
+	this->error_message_ = "roscore shut down before parameter "+parameters[i]+" could be read";
       }
     }
   }
 
   double RosParameters_configuration::get_kp() const { 
-    return this->kp;
+    return this->kp_;
   }
 
 
   double RosParameters_configuration::get_kd() const { 
-    return this->kd;
+    return this->kd_;
   }
 
 
   double RosParameters_configuration::get_ki() const { 
-    return this->ki;
+    return this->ki_;
   }
 
   bool RosParameters_configuration::has_error() const { 
-    return this->error;
+    return this->error_;
   }
 
   std::string RosParameters_configuration::get_error() const { 
-    return this->error_message;
+    return this->error_message_;
   }
   
 

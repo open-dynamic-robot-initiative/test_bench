@@ -1,7 +1,7 @@
-#include "ci_example/default_configuration.h"
+#include "ci_example_cpp/default_configuration.hpp"
 
 
-namespace ci_example {
+namespace ci_example_cpp {
 
 
   double Default_configuration::get_kp() const {
