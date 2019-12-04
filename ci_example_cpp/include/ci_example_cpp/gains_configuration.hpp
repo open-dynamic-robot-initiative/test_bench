@@ -5,22 +5,40 @@
 
 namespace ci_example_cpp {
 
-  
-  /*! virtual object describing the function concrete configuration objects should present */
+  /** @brief Abstract class defining for the PID configuration.
+   * 
+   * This virtual object describes the configuration a PID objects is waiting
+   * for. Daughter class will for example be initialize through files, ROS
+   * params, etc.
+   */
   class Gains_configuration {
     
   public:
-
+    /**
+     * @brief The default destructor do nothing.
+     */
     virtual ~Gains_configuration(){}
     
-    virtual double get_kp() const =0; /**< returns desired kp */
-    virtual double get_kd() const =0; /**< returns desired kd */
-    virtual double get_ki() const =0; /**< returns desired ki */
+    /** @brief Get the proportional gain.
+     * @return double 
+     */
+    virtual double get_kp() const =0;
+
+    /** @brief Get the derivative gain.
+     * @return double 
+     */
+    virtual double get_kd() const =0;
+
+    /** @brief Get the integral gain.
+     * @return double 
+     */
+    virtual double get_ki() const =0;
     
-    /**
-     * for enquiring in an error was encountered while reading the configuration
+    /** @brief Enquire if an error was encountered while reading the
+     * configuration.
      * @see get_error()
-     * @return true if an error has been encountered, false otherwise
+     * @return true if an error has been encountered
+     * @return false otherwise
      */
     virtual bool has_error() const =0;
     

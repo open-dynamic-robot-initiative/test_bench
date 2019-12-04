@@ -38,7 +38,7 @@ namespace ci_example_cpp {
   }
   
 
-  
+  /** @brief Use a PID factory for the unittests. */
   class Default_pid_factory {
 
   public:

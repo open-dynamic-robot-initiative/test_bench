@@ -14,7 +14,7 @@
 namespace ci_example_cpp {
 
 
-  /*! Read gains configuration from the ros parameter server*/
+  /*! @brief Read gains configuration from the ros parameter server. */
   class RosParameters_configuration : public Gains_configuration {
 
   public:
@@ -27,9 +27,9 @@ namespace ci_example_cpp {
      */
     RosParameters_configuration();
 
-    /*! get the proportinal gain */
+    /*! @brief Get the proportinal gain */
     double get_kp() const;
-    /*! get the derivative gain */
+    /*! @brief Get the derivative gain */
     double get_kd() const;
     /*! get the integral gain */
     double get_ki() const;

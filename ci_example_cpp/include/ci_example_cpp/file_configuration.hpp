@@ -8,36 +8,63 @@
 namespace ci_example_cpp {
 
   
-  /*! Reading configuration from yaml file */
+  /*! @brief Reading configuration from yaml file. */
   class File_configuration : public Gains_configuration {
     
   public:
     
     /**
-     * returns error encountered when reading configuration
+     * Returns error encountered when reading configuration
      * @param yaml_file absolute path to configuration yaml file. 
      *        The file is expected to have parameters "kp", "kd" and "ki"
      * @see has_error()
      */
     File_configuration(std::string yaml_file);
-    
-    /*! Get the proportional gain */
+
+    /** @copy 
+     */
     double get_kp() const;
-    /*! Get the derivative gain */
+
+    /**
+     * @brief Get the derivative gain.
+     * 
+     * @return double 
+     */
     double get_kd() const;
-    /*! Get the integral gain */
+
+    /**
+     * @brief Get the integral gain.
+     * 
+     * @return double 
+     */
     double get_ki() const;
-    /*! Check if there are internal errors */
+
+    /**
+     * @brief Check if there are internal errors.
+     * 
+     * @return true if an error occurred.
+     * @return false otherwise.
+     */
     bool has_error() const;
-    /*! Get the error messages */
+
+    /**
+     * @brief Get the error messages.
+     * 
+     * @return std::string internal error message.
+     */
     std::string get_error() const;
     
   private:
-    double kp_; /*!< Proportinal gain. */
-    double kd_; /*!< Derivative gain. */
-    double ki_; /*!< Integral gain. */
-    std::string error_message_; /*!< Internal error message. */
-    bool error_; /*!< True is an error occured. */
+    /** @brief  Proportinal gain. */
+    double kp_;
+    /** @brief  Derivative gain. */
+    double kd_;
+    /** @brief  Integral gain. */
+    double ki_;
+    /** @brief  Internal error message. */
+    std::string error_message_;
+    /** @brief  True if an error occured. */
+    bool error_;
     
   };
 

@@ -7,7 +7,7 @@
 namespace ci_example_cpp {
 
 
-  /*! simple 1D pid controller */
+  /*! @brief Simple 1D pid controller. */
   class PID {
 
   public:
