@@ -1,0 +1,1 @@
+../../ci_example_cpp/doc/general_rules.md
