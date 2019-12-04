@@ -29,7 +29,7 @@ good practice to check them upon creation of a new package or code refactoring.
 
 
 - Header files should be in a folder: `include/<name_of_the_project>/*`,
-    e.g. `#include ci_example_cpp/gains_configuration.hpp`
+    e.g. `#include "ci_example_cpp/gains_configuration.hpp"`
 - File extension for header files: `.hpp`
 - Source files should be in a folder named `src/`. The file should have the
     same name as the header with extension `.cpp`.
@@ -100,7 +100,8 @@ Example:
 namespace bar
 {
 
-class Foo {
+class Foo
+{
     void my_function(const Foo &foo, int *output_arg)
     {
         if (condition)
@@ -129,8 +130,8 @@ class Foo {
 ### V.3. Spaces
 
 Add single spaces between if/for/etc., the condition and the brace. add spaces
-around most binary operators. Exception: No spaces around *::*, *.* and *->*.
-Also no spaces for unary operators (*i++*, *&x*, **x*, ...).
+around most binary operators. Exception: No spaces around `::`, `.` and `->`.
+Also no spaces for unary operators (`i++`, `&x`, `*x`, ...).
 
 Example:
 ~~~{.c}
@@ -186,17 +187,8 @@ switch (x)
 ### V.5. Clang-Format Configuration
 
 To automatically format your code according to this guidelines, you can use
-clang-format with the following configuration:
-
-~~~
-BasedOnStyle: Google
-AccessModifierOffset: '-4'
-AllowShortFunctionsOnASingleLine: None
-BinPackArguments: 'false'
-BinPackParameters: 'false'
-BreakBeforeBraces: Allman
-IndentWidth: '4'
-~~~
+clang-format with the configuration
+[here](https://github.com/machines-in-motion/mpi_cmake_modules/blob/master/resources/_clang-format).
 
 ## VI. C/C++ Coding Guidelines
 
