@@ -21,11 +21,11 @@ namespace ci_example_cpp {
      */
     File_configuration(std::string yaml_file);
     
-    /*! get the proportinal gain */
+    /*! Get the proportional gain */
     double get_kp() const;
-    /*! get the derivative gain */
+    /*! Get the derivative gain */
     double get_kd() const;
-    /*! get the integral gain */
+    /*! Get the integral gain */
     double get_ki() const;
     /*! Check if there are internal errors */
     bool has_error() const;

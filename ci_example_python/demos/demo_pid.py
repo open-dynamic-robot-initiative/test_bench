@@ -23,6 +23,8 @@
 # warnings, and allow you to explain in details the content of the demo.
 #
 
+# Python 3 compatibility
+from __future__ import print_function, division
 
 from ci_example_python.pid import PID, get_default_pid, get_config_file_pid
 
@@ -39,7 +41,7 @@ if __name__ == "__main__":
     delta_time = 0.001
 
     # basic example of PID usage
-    print "basic pid usage:"
+    print("basic pid usage:")
     
     class Configuration:
         """
@@ -60,23 +62,23 @@ if __name__ == "__main__":
 
     ## Example of creation of the PID using a config class.
     pid = PID(config)
-    print pid
+    print(pid)
     ## Compute the control from the current input.
     force = pid.compute(current_position,current_velocity,position_target,delta_time)
-    print "force:",force
+    print("force:",force)
 
     ## Example of creation of the PID using default gains.
-    print "pid using default gains:"
+    print ("pid using default gains:")
     pid = get_default_pid()
-    print pid
+    print (pid)
 
     force = pid.compute(current_position,current_velocity,position_target,delta_time)
-    print "force:",force
+    print ("force:",force)
 
     # Example of creation of the PID using config files read from config file.
-    print "pid using gains read from config file:"
+    print ("pid using gains read from config file:")
     pid = get_config_file_pid(verbose=True)
-    print pid
+    print (pid)
 
     force = pid.compute(current_position,current_velocity,position_target,delta_time)
-    print "force:",force
+    print ("force:",force)

@@ -12,6 +12,8 @@
 # @brief Simple 1D PID controller, along with convenience factory.
 #
 
+# Python 3 compatibility
+from __future__ import print_function, division
 
 import os
 
@@ -134,7 +136,7 @@ def get_ros_params_pid(verbose=True):
     gains = ["kp","kd","ki"]
     # if requested, printing the parameters it is about to read
     if verbose:
-        print "reading ros parameters: "+", ".join(parameters)
+        print("reading ros parameters: "+", ".join(parameters))
     for parameter,gain in zip(parameters,gains):
         if not rospy.has_param(parameter):
             raise Exception("ros parameter server does not have the requested parameter: "+str(parameter)+" (current parameters: "+", ".join(rospy.get_param_names())+")")
@@ -170,6 +172,6 @@ def get_config_file_pid(config_file_path=None,verbose=True):
         raise Exception("failed to find configuration file: "+str(abs_path_config))
     # printing path to config file if asked
     if verbose:
-        print "reading pid gains from: ",os.path.abspath(abs_path_config)
+        print("reading pid gains from: ",os.path.abspath(abs_path_config))
     # constructing and returning the controller
     return _read_yaml_config_file(abs_path_config)

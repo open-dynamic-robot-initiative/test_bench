@@ -42,9 +42,9 @@ namespace ci_example_cpp {
   class Default_pid_factory {
 
   public:
-    /** configs_ contains the PID gains */
+    /** The PID gains. */
     static std::vector< std::shared_ptr<Gains_configuration> > configs_;
-    /** List of PID controllers */
+    /** List of PID controllers. */
     static std::vector< std::shared_ptr<PID> > controllers_;
     /**
      * @brief PID controller factory.

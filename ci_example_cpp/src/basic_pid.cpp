@@ -15,7 +15,7 @@
 
 // note the usage of "this->" to access class members.
 // this is a nice way to be unambiguous on the origin of variables
-// In any case the internal variable must be follow by a triling underscore
+// In any case the internal variable must be followed by a trailing underscore
 
 
 namespace ci_example_cpp {
