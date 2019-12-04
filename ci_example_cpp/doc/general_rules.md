@@ -77,6 +77,9 @@ merge requests).
     reviewer to see what changed.
 - Do not add functional changes and major reformatting in the same commit as
     this makes review of the functional changes very difficult.
+- Do add unit tests for new features
+- Do create new demos or update existing demos to make it easier how to use
+     the updated API
 
 ### IV.3. Some rules for the reviewers:
 
@@ -123,5 +126,5 @@ Please do **NOT** neglect the power of the continuous intergation and a nice
 written demos in terms of Documentation. So **please** take the time to:
 - write some unit-tests. See how to write a unit-tests from the tests folder in
     this package.
-- write demo executables to make the potential external user understand how your
+- write demo executables to make the external user understand how your
     API should be used.
