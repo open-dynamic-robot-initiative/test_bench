@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <package>
-  <name>ci_example_python</name>
-  <version>1.0.0</version>
-  <description>collection of examples of python demos and unit tests, in implementations suitable for continuous integration</description>
-  <author email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</author>
-  <maintainer email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</maintainer>
-  <license>BSD 3-Clause</license>
-  <buildtool_depend>catkin</buildtool_depend>
+    <name>ci_example_python</name>
+    <version>1.0.0</version>
+    <description>
+        Collection of examples of python demos and unit tests, in
+        implementations suitable for continuous integration.
+    </description>
+    <author email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</author>
+    <maintainer email="vincent.berenz@tuebingen.mpg.de">Vincent Berenz</maintainer>
+    <license>BSD 3-Clause</license>
 
-  <build_depend>rospy</build_depend>
-  <run_depend>rospy</run_depend>
+    <buildtool_depend>catkin</buildtool_depend>
 
-  <export>
-  </export>
+    <run_depend>rospy</run_depend>
+
+    <build_depend>mpi_cmake_modules</build_depend>
+
+    <export>
+    </export>
 </package>
