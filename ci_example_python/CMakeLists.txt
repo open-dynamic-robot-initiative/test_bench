@@ -12,6 +12,9 @@ project(ci_example_python)
 #    catkin packages are added to the PYTHONPATH.
 # more information can be found here: http://docs.ros.org/jade/api/catkin/html/user_guide/setup_dot_py.html
 
+find_package(catkin REQUIRED COMPONENTS
+    mpi_cmake_modules)
+
 catkin_python_setup()
 
 ####################################################################################
