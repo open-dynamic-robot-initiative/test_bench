@@ -1,3 +1,10 @@
+/**
+ * @file rosparameters_configuration.cpp
+ * @author Vincent Berenz
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft, License BSD-3-Clause
+ * @date 2019-12-09
+ */
+
 #include "ci_example_cpp/rosparameters_configuration.hpp"
 
 

@@ -1,14 +1,20 @@
+/**
+ * @file rosparameters_configuration.hpp
+ * @author Vincent Berenz
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft, License BSD-3-Clause
+ * @date 2019-12-09
+ */
+
 #pragma once
 
-#include "ci_example_cpp/gains_configuration.hpp"
+
 #include "ros/ros.h"
 #include "ros/master.h"
-
+#include "ci_example_cpp/gains_configuration.hpp"
 
 #define ROSPARAM_KP "gains_kp"
 #define ROSPARAM_KD "gains_kd"
 #define ROSPARAM_KI "gains_ki"
-
 
 
 namespace ci_example_cpp {

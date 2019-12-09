@@ -1,4 +1,12 @@
+/**
+ * @file default_configuration.hpp
+ * @author Vincent Berenz
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft, License BSD-3-Clause
+ * @date 2019-12-09
+ */
+
 #pragma once
+
 
 #include "ci_example_cpp/gains_configuration.hpp"
 
