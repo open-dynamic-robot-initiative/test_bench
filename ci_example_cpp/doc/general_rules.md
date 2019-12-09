@@ -100,7 +100,7 @@ merge requests).
 All code **shall** be documented in-source using Doxygen.
 This means that every function, class, struct, global variable, etc,
 needs to have a docstring containing some documentation in:
-- [Google](https://riptutorial.com/python/example/30002/write-documentation-using-docstrings)
+- [Google](https://google.github.io/styleguide/pyguide.html?showone=Comments#Comments)
     format for Python,
 - [Doxygen](http://www.doxygen.nl/manual/index.html) format for C/C++.
 

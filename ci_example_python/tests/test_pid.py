@@ -24,7 +24,7 @@ class PID_TESTCASE(unittest.TestCase):
     # creating this file here, which will be called before running all tests
     def setUp(self):
         with open(self.YAML_CONFIG_FILE,"w+") as f:
-            f.write(yaml.dump(PID.Default_configuration))
+            f.write(yaml.dump(PID.DefaultConfiguration))
     
     ## deleting the file created above when we leave the tests
     def tearDown(self):
@@ -34,9 +34,9 @@ class PID_TESTCASE(unittest.TestCase):
     def test_config_file_factory(self):
         pid = PID.get_config_file_pid(config_file_path=self.YAML_CONFIG_FILE,verbose=False)
         gains = pid.get_gains()
-        self.assertEqual(gains["kp"],PID.Default_configuration.kp)
-        self.assertEqual(gains["kd"],PID.Default_configuration.kd)
-        self.assertEqual(gains["ki"],PID.Default_configuration.ki)
+        self.assertEqual(gains["kp"],PID.DefaultConfiguration.kp)
+        self.assertEqual(gains["kd"],PID.DefaultConfiguration.kd)
+        self.assertEqual(gains["ki"],PID.DefaultConfiguration.ki)
 
     ## testing creating a pid controller from default config file 
     def test_config_file_factory(self):
@@ -46,9 +46,9 @@ class PID_TESTCASE(unittest.TestCase):
     def test_default_factory(self):
         pid = PID.get_default_pid()
         gains = pid.get_gains()
-        self.assertEqual(gains["kp"],PID.Default_configuration.kp)
-        self.assertEqual(gains["kd"],PID.Default_configuration.kd)
-        self.assertEqual(gains["ki"],PID.Default_configuration.ki)
+        self.assertEqual(gains["kp"],PID.DefaultConfiguration.kp)
+        self.assertEqual(gains["kd"],PID.DefaultConfiguration.kd)
+        self.assertEqual(gains["ki"],PID.DefaultConfiguration.ki)
 
     ## testing creating a pid controller from a non existing file raises an exception
     def test_exception_on_non_existing_config_file(self):
