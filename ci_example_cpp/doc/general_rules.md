@@ -1,5 +1,5 @@
-General rules applied in the code base {#general_rules_0}
-======================================
+1. General rules applied in the code base {#coding_guidelines_0}
+=========================================
 
 ## I. Introduction
 

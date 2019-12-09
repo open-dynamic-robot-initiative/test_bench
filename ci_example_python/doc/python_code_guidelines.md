@@ -1,5 +1,5 @@
-Python Coding Guidelines {#coding_guidelines_0}
-========================
+2. Python Coding Guidelines {#coding_guidelines_1}
+============================
 
 ## I. Introduction
 

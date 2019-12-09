@@ -1,5 +1,5 @@
-C++ Coding Guidelines {#coding_guidelines_0}
-=====================
+2. C++ Coding Guidelines {#coding_guidelines_1}
+=========================
 
 ## I. Introduction
 

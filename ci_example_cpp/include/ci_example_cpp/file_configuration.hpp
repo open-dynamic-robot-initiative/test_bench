@@ -21,37 +21,19 @@ namespace ci_example_cpp {
      */
     File_configuration(std::string yaml_file);
 
-    /** @copy 
-     */
+    /** @copydoc Gains_configuration::get_kp() */
     double get_kp() const;
 
-    /**
-     * @brief Get the derivative gain.
-     * 
-     * @return double 
-     */
+    /** @copydoc Gains_configuration::get_kd() */
     double get_kd() const;
 
-    /**
-     * @brief Get the integral gain.
-     * 
-     * @return double 
-     */
+    /** @copydoc Gains_configuration::get_ki() */
     double get_ki() const;
 
-    /**
-     * @brief Check if there are internal errors.
-     * 
-     * @return true if an error occurred.
-     * @return false otherwise.
-     */
+    /** @copydoc Gains_configuration::has_error() */
     bool has_error() const;
 
-    /**
-     * @brief Get the error messages.
-     * 
-     * @return std::string internal error message.
-     */
+    /** @copydoc Gains_configuration::get_error() */
     std::string get_error() const;
     
   private:
