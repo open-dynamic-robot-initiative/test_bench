@@ -45,10 +45,10 @@ protected:
 };
 
 
-/* ******************************* testing Default_configuration ******************************* */
+/* ******************************* testing DefaultConfiguration ******************************* */
 
 TEST_F(PID_tests, default_configuration_test){
-  ci_example_cpp::Default_configuration config;
+  ci_example_cpp::DefaultConfiguration config;
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
@@ -90,7 +90,7 @@ TEST_F(PID_tests, configurations_same_results_test){
   double position_target=2;
   double delta_time=0.01;
 
-  ci_example_cpp::Default_configuration default_config;
+  ci_example_cpp::DefaultConfiguration default_config;
   ci_example_cpp::PID controller_default(default_config);
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 

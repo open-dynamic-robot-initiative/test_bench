@@ -53,8 +53,8 @@ namespace ci_example_cpp {
   
   /**
    * convenience factory for getting default controller,
-   *  i.e. same as PID(std::shared_ptr<Default_configuration> configuration)
-   * @see Default_configuration
+   *  i.e. same as PID(std::shared_ptr<DefaultConfiguration> configuration)
+   * @see DefaultConfiguration
    */
   PID& get_default_pid();
 

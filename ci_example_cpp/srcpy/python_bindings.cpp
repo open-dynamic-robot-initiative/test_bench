@@ -1,3 +1,9 @@
+/**
+ * @file python_bindings.cpp
+ * license License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft.
+ */
+
 #include <pybind11/pybind11.h>
 #include "ci_example_cpp/pid.hpp"
 

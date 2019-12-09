@@ -17,11 +17,11 @@ namespace ci_example_cpp {
    *  - kd = DEFAULT_KD
    *  - ki = DEFAULT_KI
    */
-  class Default_configuration : public Gains_configuration {
+  class DefaultConfiguration : public Gains_configuration {
     
   public:
     /** @brief Here we use the default destructor. */
-    ~Default_configuration(){}
+    ~DefaultConfiguration(){}
     
     /**
      * @brief Always returns DEFAULT_KP.

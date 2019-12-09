@@ -4,7 +4,7 @@ namespace ci_example_cpp {
 
   PID::PID()
     : integral_(0) {
-    configuration_ = new Default_configuration();
+    configuration_ = new DefaultConfiguration();
     private_configuration_ = true;
   }
 
@@ -52,7 +52,7 @@ namespace ci_example_cpp {
      * @return PID& Return a reference to a newly created PID controller.
      */
     static PID& get(){
-      std::shared_ptr<Gains_configuration> configuration(new Default_configuration());
+      std::shared_ptr<Gains_configuration> configuration(new DefaultConfiguration());
       std::shared_ptr<PID> controller(new PID(*configuration));
       configs_.push_back(configuration);
       controllers_.push_back(controller);
