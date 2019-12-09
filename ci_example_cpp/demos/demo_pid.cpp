@@ -5,8 +5,12 @@
  * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
  * @date 2019-05-22
  * 
- * @brief example of a simple demo suitable for continuous integration
+ * @brief Example of a simple demo suitable for continuous integration.
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
+ * 
+ * @example demo_pid.cpp
+ * Create the default PID controller and compute the control once. This
+ * illustrates in the simplest way the use of the PID class API.
  */
 
 #include "ci_example_cpp/pid.hpp" 

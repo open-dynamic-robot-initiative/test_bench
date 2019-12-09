@@ -5,8 +5,12 @@
  * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
  * @date 2019-05-22
  * 
- * @brief example of a demo that requires to read a config file
+ * @brief Example of a demo that requires to read a config file.
  * @see https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
+ * 
+ * @example demo_pid_load_from_file.cpp
+ * Load the PID gains from a yaml file and create a PID controller from them.
+ * This illustrates how to safely use the API when yaml file parsing is wanted.
  */
 
 #include "ci_example_cpp/pid.hpp"

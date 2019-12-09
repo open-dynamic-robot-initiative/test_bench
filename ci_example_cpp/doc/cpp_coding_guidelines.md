@@ -1,5 +1,5 @@
-Coding Guidelines {#coding_guidelines_0}
-=================
+C++ Coding Guidelines {#coding_guidelines_0}
+=====================
 
 ## I. Introduction
 
@@ -29,7 +29,7 @@ good practice to check them upon creation of a new package or code refactoring.
 
 
 - Header files should be in a folder: `include/<name_of_the_project>/*`,
-    e.g. `#include "ci_example_cpp/gains_configuration.hpp"`
+    e.g. @code `#include "ci_example_cpp/gains_configuration.hpp"` @endcode
 - File extension for header files: `.hpp`
 - Source files should be in a folder named `src/`. The file should have the
     same name as the header with extension `.cpp`.
@@ -203,13 +203,13 @@ void foobar(Foo foo);  // results in copy of `foo`. Only do this if const
                        // reference is not possible for some reason.
 ~~~
 
-### VI.2. *#pragma once* vs Include Guards
+### VI.2. @code *#pragma once* @endcode vs Include Guards
 
-Prefer *#pragma once* over include guards. *#pragma once* is not part of the
-official standard but is widely supported by compilers and much simpler to
-maintain.
+Prefer @code *#pragma once* @endcode over include guards.
+@code *#pragma once* @endcode is not part of the official standard but is widely
+supported by compilers and much simpler to maintain.
 
-Note that there are some border cases where *#pragma once* is causing issues
+Note that there are some border cases where @code *#pragma once* @endcode is causing issues
 (e.g. on Windows or when having a weird build setup with symlinks or copies of
 files). In such cases use traditional include guards. Make sure they have unique
 names by composing them from the package name and the path/name of the file

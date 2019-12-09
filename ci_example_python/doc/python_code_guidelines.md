@@ -1,5 +1,5 @@
-Coding Guidelines {#coding_guidelines_0}
-=================
+Python Coding Guidelines {#coding_guidelines_0}
+========================
 
 ## I. Introduction
 
