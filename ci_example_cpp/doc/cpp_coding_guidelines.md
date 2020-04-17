@@ -188,7 +188,7 @@ switch (x)
 
 To automatically format your code according to this guidelines, you can use
 clang-format with the configuration
-[here](https://github.com/machines-in-motion/mpi_cmake_modules/blob/master/resources/_clang-format).
+[here](https://github.com/machines-in-motion/mpi_cmake_modules/blob/master/python/mpi_cmake_modules/_clang-format).
 
 ## VI. C/C++ Coding Guidelines
 
