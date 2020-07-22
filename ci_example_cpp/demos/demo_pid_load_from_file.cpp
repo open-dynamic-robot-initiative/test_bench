@@ -2,7 +2,7 @@
  * @file demo_pid_load_from_file.cpp
  * @author Vincent Berenz
  * license License BSD-3-Clause
- * @copyright Copyright (c) 2019, New York University and Max Planck Gesellshaft.
+ * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft.
  * @date 2019-05-22
  * 
  * @brief Example of a demo that requires to read a config file.
