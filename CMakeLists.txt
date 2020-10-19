@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ci_example_cpp) 
+project(ci_example) 
 
 # required to use std::shared_ptr in code and to link the python bindings
 if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -54,6 +54,9 @@ add_library( ci_example SHARED
   src/pid.cpp )
 target_link_libraries(ci_example ${catkin_LIBRARIES} )
 
+
+catkin_python_setup()
+
 # this package exports its include folder and its libraries for other catkin packages to enjoy
 catkin_package(
  LIBRARIES ci_example # exporting the ci_example library (libs and executable built in other catkin package will be able to link against them)
@@ -88,6 +91,17 @@ pkg_config_use_dependency(ci_example_ut yaml-cpp)
 # the absolute path to the file test_yaml_file.yaml in the catkin package config folder
 set_target_properties(ci_example_ut PROPERTIES 
   COMPILE_DEFINITIONS TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
+
+
+# regular unit tests (test is the name of the folder in which all the tests are)
+catkin_add_nosetests(tests)
+
+
+# test that requires roscore to run:
+# tests are started via *.test files which are ros launch files
+# consequently, these tests may run under the assumption roscore is running
+find_package(rostest REQUIRED)
+add_rostest(tests/test_pid_ros.test)
 
 
 ####################################################################################
