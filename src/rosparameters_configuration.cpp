@@ -5,10 +5,10 @@
  * @date 2019-12-09
  */
 
-#include "ci_example_cpp/rosparameters_configuration.hpp"
+#include "ci_example/rosparameters_configuration.hpp"
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   static bool get_parameter(const ros::NodeHandle &nh, const std::string &parameter, double &get_value){
     ros::Rate wait(10);

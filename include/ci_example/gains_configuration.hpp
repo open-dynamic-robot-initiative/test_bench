@@ -12,7 +12,7 @@
 #include <iostream>
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   /** @brief Abstract class defining for the PID configuration.
    * 

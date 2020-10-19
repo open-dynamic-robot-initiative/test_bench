@@ -1,34 +1,28 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.10.2)
 project(ci_example) 
 
-# required to use std::shared_ptr in code and to link the python bindings
-if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-as-needed")
+# Using C++17
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
 endif()
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 
-####################################################################################
-#                 ensuring path to libraries are set during install                #
-####################################################################################
-# the commands below are required to make sure the binaries may still link against
-# their required libraries after install (i.e. after call to catkin_make install)
-# note: has to be called before add_executable
-set(CMAKE_SKIP_BUILD_RPATH  FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)                                                
-set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(yaml_cpp_catkin REQUIRED)
+find_package(mpi_cmake_modules REQUIRED)
+find_package(pybind11_vendor REQUIRED)
+find_package(pybind11 REQUIRED)
 
+# only not ament-cmake dependencies ?
+ament_export_dependencies(pybind11)
 
-# these catkin packages must be in the catkin workspace for 
-# this package to compile. roscpp, rostest and std_msgs are standart ros package
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rostest
-  std_msgs
-  mpi_cmake_modules
-  pybind11_catkin
-)
+# prepare to export all needed targets
+set(all_targets)
+set(all_target_exports)
 
 # Find some none-catkin dependencies
 add_required_dependency("yaml-cpp >= 0.5")
@@ -50,7 +44,7 @@ add_library( ci_example SHARED
   src/gains_configuration.cpp
   src/default_configuration.cpp
   src/file_configuration.cpp
-  src/rosparameters_configuration.cpp
+  #src/rosparameters_configuration.cpp
   src/pid.cpp )
 target_link_libraries(ci_example ${catkin_LIBRARIES} )
 
@@ -61,7 +55,7 @@ catkin_python_setup()
 catkin_package(
  LIBRARIES ci_example # exporting the ci_example library (libs and executable built in other catkin package will be able to link against them)
  INCLUDE_DIRS include # exporting the include file: source file hosted by other catkin package will be able to include the related header files)
- CATKIN_DEPENDS roscpp std_msgs 
+ CATKIN_DEPENDS #roscpp std_msgs 
 )
 
 # getting the path to the config folder and storing it in the CONFIG_PATH variable
@@ -100,8 +94,8 @@ catkin_add_nosetests(tests)
 # test that requires roscore to run:
 # tests are started via *.test files which are ros launch files
 # consequently, these tests may run under the assumption roscore is running
-find_package(rostest REQUIRED)
-add_rostest(tests/test_pid_ros.test)
+#find_package(rostest REQUIRED)
+#add_rostest(tests/test_pid_ros.test)
 
 
 ####################################################################################
@@ -113,15 +107,15 @@ add_rostest(tests/test_pid_ros.test)
 # (here ci_example_rostest.test)
 # tests are run using same method as for regular unit-tests, as explained above
 
-find_package(rostest REQUIRED)
-add_rostest_gtest(ci_example_rostest
-  tests/ci_example_rostest.test # launch file that will be called before starting the test
-  tests/ci_example_rostest.cpp # source code of test that uses ros parameter server
-  tests/main.cpp )
-target_link_libraries(ci_example_rostest
-  ${catkin_LIBRARIES}  ci_example)
+#find_package(rostest REQUIRED)
+#add_rostest_gtest(ci_example_rostest
+#  tests/ci_example_rostest.test # launch file that will be called before starting the test
+#  tests/ci_example_rostest.cpp # source code of test that uses ros parameter server
+#  tests/main.cpp )
+#target_link_libraries(ci_example_rostest
+#  ${catkin_LIBRARIES}  ci_example)
 # Use the none-catkin dependencies
-pkg_config_use_dependency(ci_example_rostest yaml-cpp)
+#pkg_config_use_dependency(ci_example_rostest yaml-cpp)
 
 ####################################################################################
 #                 how to name your demo executables ?                              #

@@ -5,10 +5,10 @@
  * @date 2019-12-09
  */
 
-#include "ci_example_cpp/default_configuration.hpp"
+#include "ci_example/default_configuration.hpp"
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
 
   double DefaultConfiguration::get_kp() const {

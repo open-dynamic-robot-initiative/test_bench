@@ -8,7 +8,7 @@
 #pragma once
 
 
-#include "ci_example_cpp/gains_configuration.hpp"
+#include "ci_example/gains_configuration.hpp"
 
 
 #define DEFAULT_KP 1.0
@@ -16,7 +16,7 @@
 #define DEFAULT_KI 1.0
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   /** @brief Default configuration for the kp, kd, ki paramters.
    * 

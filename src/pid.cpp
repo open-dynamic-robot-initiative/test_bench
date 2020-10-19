@@ -5,9 +5,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example_cpp/pid.hpp"
+#include "ci_example/pid.hpp"
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   PID::PID()
     : integral_(0) {

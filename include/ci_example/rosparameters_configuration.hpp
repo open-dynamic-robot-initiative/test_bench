@@ -17,7 +17,7 @@
 #define ROSPARAM_KI "gains_ki"
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
 
   /*! @brief Read gains configuration from the ros parameter server. */

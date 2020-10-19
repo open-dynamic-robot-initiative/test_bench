@@ -5,10 +5,10 @@
  * @date 2019-12-09
  */
 
-#include "ci_example_cpp/file_configuration.hpp"
+#include "ci_example/file_configuration.hpp"
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   File_configuration::File_configuration(std::string yaml_file){
 

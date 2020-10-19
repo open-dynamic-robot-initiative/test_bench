@@ -9,10 +9,10 @@
 
 
 #include "yaml-cpp/yaml.h"
-#include "ci_example_cpp/gains_configuration.hpp"
+#include "ci_example/gains_configuration.hpp"
 
 
-namespace ci_example_cpp {
+namespace ci_example {
 
   
   /*! @brief Reading configuration from yaml file. */

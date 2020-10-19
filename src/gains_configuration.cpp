@@ -5,7 +5,7 @@
  * @date 2019-12-09
  */
 
-#include "ci_example_cpp/gains_configuration.hpp"
+#include "ci_example/gains_configuration.hpp"
 
 
 namespace ci_example_cpp {
