@@ -5,12 +5,12 @@
  */
 
 #include <pybind11/pybind11.h>
-#include "ci_example_cpp/pid.hpp"
+#include "ci_example/pid.hpp"
 
 
-using namespace ci_example_cpp;
+using namespace ci_example;
 
-PYBIND11_MODULE(basic_pid,m) {
+PYBIND11_MODULE(ci_example_cpp_bindings,m) {
 
   pybind11::class_<PID>(m,"PID")
     .def(pybind11::init<>())

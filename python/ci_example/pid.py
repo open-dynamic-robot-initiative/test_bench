@@ -57,7 +57,9 @@ class ConfigFileConfiguration:
     relative_path = os.path.join("..", "..", "config", "test_pid_gains.yaml")
 
 
-class PID:
+# "PythonPID" : to differentiate with cpp bindings PID
+# see /srcpy/wrappers.cpp
+class PythonPID:
     """ 
     Simple 1D PID controller
 

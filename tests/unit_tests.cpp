@@ -10,8 +10,8 @@
  */
 
 
-#include "ci_example_cpp/pid.hpp"
-#include "ci_example_cpp/file_configuration.hpp"
+#include "ci_example/pid.hpp"
+#include "ci_example/file_configuration.hpp"
 #include <iostream>
 #include <fstream>
 #include "gtest/gtest.h"
@@ -48,7 +48,7 @@ protected:
 /* ******************************* testing DefaultConfiguration ******************************* */
 
 TEST_F(PID_tests, default_configuration_test){
-  ci_example_cpp::DefaultConfiguration config;
+  ci_example::DefaultConfiguration config;
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
@@ -58,14 +58,15 @@ TEST_F(PID_tests, default_configuration_test){
 /* ******************************* testing File_configuration ******************************* */
 
 TEST_F(PID_tests, file_configuration_ok_test){
-  ci_example_cpp::File_configuration config(TEST_PID_GAINS_YAML_FILE_PATH); // see CMakeLists.txt to see how this change to valid path
+  // see CMakeLists.txt to see how this change to valid path
+  ci_example::File_configuration config(YAML_CONFIG_FILE);
   ASSERT_EQ(config.get_kp(),DEFAULT_KP); 
   ASSERT_EQ(config.get_kd(),DEFAULT_KD); 
   ASSERT_EQ(config.get_ki(),DEFAULT_KI); 
 }
 
 TEST_F(PID_tests, file_configuration_fail_test){
-  ci_example_cpp::File_configuration config("None existing file"); 
+  ci_example::File_configuration config("None existing file"); 
   ASSERT_EQ(config.has_error(),true); 
 }
 
@@ -74,13 +75,10 @@ TEST_F(PID_tests, file_configuration_fail_test){
 /* ******************************* with default configuration file ******************************* */
 
 TEST_F(PID_tests, read_config_file_test){
-  ci_example_cpp::File_configuration config(YAML_CONFIG_FILE); 
+  ci_example::File_configuration config(YAML_CONFIG_FILE); 
   ASSERT_EQ(config.has_error(),false);
 }
 
-
-/* ******************************* sanity check: using default or file configuration ******************************* */
-/* ******************************* should have same result  ******************************* */
 
 TEST_F(PID_tests, configurations_same_results_test){
 
@@ -90,27 +88,17 @@ TEST_F(PID_tests, configurations_same_results_test){
   double position_target=2;
   double delta_time=0.01;
 
-  ci_example_cpp::DefaultConfiguration default_config;
-  ci_example_cpp::PID controller_default(default_config);
+  ci_example::DefaultConfiguration default_config;
+  ci_example::PID controller_default(default_config);
   double force_default = controller_default.compute(position,velocity,position_target,delta_time);
 
-  ci_example_cpp::File_configuration file_config(YAML_CONFIG_FILE);
-  ci_example_cpp::PID controller_file(file_config);
+  ci_example::File_configuration file_config(YAML_CONFIG_FILE);
+  ci_example::PID controller_file(file_config);
   double force_file = controller_file.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force_default,force_file); 
 
 }
-
-/* ******************************* testing of PID controller ******************************* */
-
-// arguably, these tests are way insufficient. E.g. stability of the controller
-// is not tested. Ideally, some simulation should be used for better testing.
-// Use your best judgement to evaluate to which extend investing time and effort is worth the gain.
-// But these considerations should never stop you to implement the simpler and basic tests
-// such as the one presented here. 
-// *** Such tests take 5 min to implement **, 
-// yet they can be very useful by catching at least some of the main error that may occure
 
 // does integral integrates ?
 TEST_F(PID_tests, integral){
@@ -121,7 +109,7 @@ TEST_F(PID_tests, integral){
   double position_target=2;
   double delta_time=0.01;
 
-  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
+  ci_example::PID& controller = ci_example::get_default_pid();
   double force_1 = controller.compute(position,velocity,position_target,delta_time);
   double force_2 = controller.compute(position,velocity,position_target,delta_time);
 
@@ -139,7 +127,7 @@ TEST_F(PID_tests, reset_integral){
   double delta_time=0.01;
 
   // running pid and integrating
-  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
+  ci_example::PID& controller = ci_example::get_default_pid();
   double force_1 = controller.compute(position,velocity,position_target,delta_time);
 
   // reset integral
@@ -161,7 +149,7 @@ TEST_F(PID_tests, zero_force_at_target){
   double position_target=position;
   double delta_time=0.01;
 
-  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
+  ci_example::PID& controller = ci_example::get_default_pid();
   double force = controller.compute(position,velocity,position_target,delta_time);
 
   ASSERT_EQ(force,0);
@@ -177,7 +165,7 @@ TEST_F(PID_tests, right_direction){
   double position_target=1;
   double delta_time=0.01;
 
-  ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
+  ci_example::PID& controller = ci_example::get_default_pid();
   double force = controller.compute(position,velocity,position_target,delta_time);
   ASSERT_GT(force,0);
 
@@ -202,6 +190,3 @@ TEST_F(PID_tests, right_direction){
 
 
 
-/* ******************************* testing RosParameters_configuration ? ******************************* */
-
-// because it uses rostest, RosParameters_configuration is tested in a separated file

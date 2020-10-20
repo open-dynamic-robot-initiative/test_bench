@@ -25,7 +25,7 @@ namespace ci_example {
 
       this->error_ = true;
       this->error_message_ = e.what();
-
+      
     }
 
   }

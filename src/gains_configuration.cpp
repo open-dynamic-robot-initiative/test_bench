@@ -8,8 +8,7 @@
 #include "ci_example/gains_configuration.hpp"
 
 
-namespace ci_example_cpp {
-
+namespace ci_example {
   
   void print_configuration(const Gains_configuration& configuration){
     std::cout << "kp: " << configuration.get_kp() << std::endl;
