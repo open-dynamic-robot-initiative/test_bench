@@ -2,16 +2,10 @@
 Unit-tests for PID and related factories
 """
 
-
 import unittest
 import yaml
 import os
-import ci_example_python.pid as PID
-
-
-# see CMakeLists.txt in root folder to see how to activate these tests
-# for continuous integration
-
+from ci_example import pid
 
 
 ## set of unit-tests for PID and related factories
@@ -24,7 +18,7 @@ class PID_TESTCASE(unittest.TestCase):
     # creating this file here, which will be called before running all tests
     def setUp(self):
         with open(self.YAML_CONFIG_FILE,"w+") as f:
-            f.write(yaml.dump(PID.DefaultConfiguration))
+            f.write(yaml.dump(pid.DefaultConfiguration))
     
     ## deleting the file created above when we leave the tests
     def tearDown(self):
@@ -32,28 +26,28 @@ class PID_TESTCASE(unittest.TestCase):
 
     ## testing creating a pid controller from file works as expected
     def test_config_file_factory(self):
-        pid = PID.get_config_file_pid(config_file_path=self.YAML_CONFIG_FILE,verbose=False)
+        pid = pid.get_config_file_pid(config_file_path=self.YAML_CONFIG_FILE,verbose=False)
         gains = pid.get_gains()
-        self.assertEqual(gains["kp"],PID.DefaultConfiguration.kp)
-        self.assertEqual(gains["kd"],PID.DefaultConfiguration.kd)
-        self.assertEqual(gains["ki"],PID.DefaultConfiguration.ki)
+        self.assertEqual(gains["kp"],pid.DefaultConfiguration.kp)
+        self.assertEqual(gains["kd"],pid.DefaultConfiguration.kd)
+        self.assertEqual(gains["ki"],pid.DefaultConfiguration.ki)
 
     ## testing creating a pid controller from default config file 
     def test_config_file_factory(self):
-        pid = PID.get_config_file_pid(verbose=False)
+        pid = pid.get_config_file_pid(verbose=False)
    
     ## testing creation using default config
     def test_default_factory(self):
-        pid = PID.get_default_pid()
+        pid = pid.get_default_pid()
         gains = pid.get_gains()
-        self.assertEqual(gains["kp"],PID.DefaultConfiguration.kp)
-        self.assertEqual(gains["kd"],PID.DefaultConfiguration.kd)
-        self.assertEqual(gains["ki"],PID.DefaultConfiguration.ki)
+        self.assertEqual(gains["kp"],pid.DefaultConfiguration.kp)
+        self.assertEqual(gains["kd"],pid.DefaultConfiguration.kd)
+        self.assertEqual(gains["ki"],pid.DefaultConfiguration.ki)
 
     ## testing creating a pid controller from a non existing file raises an exception
     def test_exception_on_non_existing_config_file(self):
         with self.assertRaises(Exception):
-            pid = PID.get_config_file_pid(config_file_path="non_existing_path",verbose=False)
+            pid = pid.get_config_file_pid(config_file_path="non_existing_path",verbose=False)
         
     ## testing integral integrates, except if ki is zero
     def test_integral(self):
@@ -63,7 +57,7 @@ class PID_TESTCASE(unittest.TestCase):
         velocity = 1
         position_target = 2
         delta_time = 0.1
-        pid = PID.PID(config)
+        pid = pid.PythonPID(config)
         force_1 = pid.compute(position,velocity,position_target,delta_time)
         force_2 = pid.compute(position,velocity,position_target,delta_time)
         self.assertNotEqual(force_1,force_2)
@@ -80,7 +74,7 @@ class PID_TESTCASE(unittest.TestCase):
         velocity = 0
         position_target = 1
         delta_time = 0.1
-        pid = PID.PID(config)
+        pid = pid.PythonPID(config)
         force = pid.compute(position,velocity,position_target,delta_time)
         self.assertEqual(force,0)
 
@@ -91,7 +85,7 @@ class PID_TESTCASE(unittest.TestCase):
         velocity = 0
         target_position = 1
         delta_time = 0.1
-        pid = PID.PID(config)
+        pid = pid.PythonPID(config)
         force = pid.compute(position,velocity,target_position,delta_time)
         self.assertTrue(force>0)
         target_position = -1
