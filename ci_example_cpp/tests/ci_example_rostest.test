@@ -1,5 +1,0 @@
-<launch>
-<!-- ci_example_rostest is the name of the test library created in CMakeLists.txt file -->
-<!-- ci_example is the name of this catkin package -->
-<test test-name="ci_example_rostest" pkg="ci_example_cpp" type="ci_example_rostest"/>
-</launch>
