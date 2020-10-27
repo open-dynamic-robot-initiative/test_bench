@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-## @namespace ci_example.pid
+## @namespace package_template.pid
 """ Brief description of the pid module.
 
     More advanced description of this module, e.g.

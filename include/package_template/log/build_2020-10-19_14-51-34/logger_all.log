@@ -6,7 +6,7 @@
 [0.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
 [0.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
 [0.630s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
-[0.630s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example'
+[0.630s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template'
 [0.630s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
 [0.630s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
 [0.630s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
@@ -47,13 +47,13 @@
 [0.701s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify_send'
 [0.709s] DEBUG:colcon.colcon_core.event_reactor:joined thread
 [0.724s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
-[0.725s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/local_setup.ps1'
-[0.726s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/_local_setup_util_ps1.py'
-[0.728s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/setup.ps1'
-[0.738s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/local_setup.sh'
-[0.739s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/_local_setup_util_sh.py'
-[0.739s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/setup.sh'
-[0.745s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/local_setup.bash'
-[0.746s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/setup.bash'
-[0.751s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/local_setup.zsh'
-[0.751s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/ci_example/include/ci_example/install/setup.zsh'
+[0.725s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/local_setup.ps1'
+[0.726s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/_local_setup_util_ps1.py'
+[0.728s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/setup.ps1'
+[0.738s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/local_setup.sh'
+[0.739s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/_local_setup_util_sh.py'
+[0.739s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/setup.sh'
+[0.745s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/local_setup.bash'
+[0.746s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/setup.bash'
+[0.751s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/local_setup.zsh'
+[0.751s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vberenz/Workspaces/core_robotics/workspace/src/package_template/include/package_template/install/setup.zsh'

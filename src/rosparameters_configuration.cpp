@@ -6,9 +6,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example/rosparameters_configuration.hpp"
+#include "package_template/rosparameters_configuration.hpp"
 
-namespace ci_example
+namespace package_template
 {
 static bool get_parameter(const ros::NodeHandle &nh,
                           const std::string &parameter,
@@ -70,4 +70,4 @@ std::string RosParameters_configuration::get_error() const
     return this->error_message_;
 }
 
-}  // namespace ci_example
+}  // namespace package_template

@@ -7,7 +7,7 @@
  * @date 2019-05-22
  */
 
-#include "ci_example/basic_pid.hpp"  // where DEFAULT_KP,KD and KI are declared
+#include "package_template/basic_pid.hpp"  // where DEFAULT_KP,KD and KI are declared
 
 // you may notice that there is no doxygen friendly documentation here.
 // all documentation should be in the header files.
@@ -17,6 +17,6 @@
 // this is a nice way to be unambiguous on the origin of variables
 // In any case the internal variable must be followed by a trailing underscore
 
-namespace ci_example
+namespace package_template
 {
 }

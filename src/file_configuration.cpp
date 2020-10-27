@@ -6,9 +6,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example/file_configuration.hpp"
+#include "package_template/file_configuration.hpp"
 
-namespace ci_example
+namespace package_template
 {
 File_configuration::File_configuration(std::string yaml_file)
 {
@@ -53,4 +53,4 @@ std::string File_configuration::get_error() const
     return this->error_message_;
 }
 
-}  // namespace ci_example
+}  // namespace package_template

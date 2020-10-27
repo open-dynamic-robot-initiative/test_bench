@@ -8,13 +8,13 @@
 
 #pragma once
 
-#include "ci_example/gains_configuration.hpp"
+#include "package_template/gains_configuration.hpp"
 
 #define DEFAULT_KP 1.0
 #define DEFAULT_KD 1.0
 #define DEFAULT_KI 1.0
 
-namespace ci_example
+namespace package_template
 {
 /** @brief Default configuration for the kp, kd, ki paramters.
  *
@@ -68,4 +68,4 @@ public:
     std::string get_error() const;
 };
 
-};  // namespace ci_example
+};  // namespace package_template

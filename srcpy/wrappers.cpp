@@ -6,11 +6,11 @@
  */
 
 #include <pybind11/pybind11.h>
-#include "ci_example/pid.hpp"
+#include "package_template/pid.hpp"
 
-using namespace ci_example;
+using namespace package_template;
 
-PYBIND11_MODULE(ci_example_cpp_bindings, m)
+PYBIND11_MODULE(package_template_cpp_bindings, m)
 {
     pybind11::class_<PID>(m, "PID")
         .def(pybind11::init<>())

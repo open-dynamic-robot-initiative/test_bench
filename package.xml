@@ -5,7 +5,7 @@
 
 <package format="3">
 
-  <name>ci_example</name>
+  <name>package_template</name>
   <version>1.0.0</version>
   <description>
     collection of examples of python demos and unit tests,

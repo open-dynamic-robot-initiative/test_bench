@@ -10,9 +10,9 @@
 
 #include <memory>
 #include <vector>
-#include "ci_example/default_configuration.hpp"
+#include "package_template/default_configuration.hpp"
 
-namespace ci_example
+namespace package_template
 {
 /*! @brief Simple 1D pid controller. */
 class PID
@@ -62,4 +62,4 @@ private:
  */
 PID& get_default_pid();
 
-}  // namespace ci_example
+}  // namespace package_template

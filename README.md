@@ -1,10 +1,11 @@
-package_template {#mainpage}
-================
+package_template_cpp {#mainpage}
+===============
 
 ## What is it
 
-This package provides an example of a colcon/ament package,
-with dummy code but examples of demos and unit tests.
+This package contains a set of examples of demos and unit tests in c++ 
+supported by the continuous integration. It also contains the coding guidelines
+setup in the [machines-in-motion](https://wp.nyu.edu/machinesinmotion/) group.
 
 ## Authors
 

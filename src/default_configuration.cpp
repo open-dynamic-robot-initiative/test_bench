@@ -6,9 +6,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example/default_configuration.hpp"
+#include "package_template/default_configuration.hpp"
 
-namespace ci_example
+namespace package_template
 {
 double DefaultConfiguration::get_kp() const
 {
@@ -35,4 +35,4 @@ std::string DefaultConfiguration::get_error() const
     return std::string("no error");
 }
 
-}  // namespace ci_example
+}  // namespace package_template

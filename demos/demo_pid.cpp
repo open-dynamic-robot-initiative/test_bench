@@ -8,14 +8,14 @@
  *
  * @brief Example of a simple demo suitable for continuous integration.
  * @see
- * https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-a-demo
+ * https://git-amd.tuebingen.mpg.de/amd-clmc/package_template/wikis/catkin:-how-to-implement-a-demo
  *
  * @example demo_pid.cpp
  * Create the default PID controller and compute the control once. This
  * illustrates in the simplest way the use of the PID class API.
  */
 
-#include "ci_example_cpp/pid.hpp"
+#include "package_template_cpp/pid.hpp"
 
 /**
  * @brief Creates a PID controller and use the API in a small demo.
@@ -23,7 +23,7 @@
 void run_demo()
 {
     // PID controller with default gains values
-    ci_example_cpp::PID& controller = ci_example_cpp::get_default_pid();
+    package_template_cpp::PID& controller = package_template_cpp::get_default_pid();
 
     // example of force computation
     double current_position = 1;

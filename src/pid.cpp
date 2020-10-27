@@ -6,9 +6,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example/pid.hpp"
+#include "package_template/pid.hpp"
 
-namespace ci_example
+namespace package_template
 {
 PID::PID() : integral_(0)
 {
@@ -82,4 +82,4 @@ PID& get_default_pid()
     return Default_pid_factory::get();
 }
 
-}  // namespace ci_example
+}  // namespace package_template

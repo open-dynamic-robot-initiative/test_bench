@@ -29,7 +29,7 @@ good practice to check them upon creation of a new package or code refactoring.
 
 
 - Header files should be in a folder: `include/<name_of_the_project>/*`,
-    e.g. @code `#include "ci_example_cpp/gains_configuration.hpp"` @endcode
+    e.g. @code `#include "package_template_cpp/gains_configuration.hpp"` @endcode
 - File extension for header files: `.hpp`
 - Source files should be in a folder named `src/`. The file should have the
     same name as the header with extension `.cpp`.

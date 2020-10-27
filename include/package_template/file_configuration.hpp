@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "ci_example/gains_configuration.hpp"
+#include "package_template/gains_configuration.hpp"
 #include "yaml-cpp/yaml.h"
 
-namespace ci_example
+namespace package_template
 {
 /*! @brief Reading configuration from yaml file. */
 class File_configuration : public Gains_configuration
@@ -53,4 +53,4 @@ private:
     bool error_;
 };
 
-}  // namespace ci_example
+}  // namespace package_template

@@ -1,5 +1,5 @@
 /**
- * @file ci_example_ut.cpp
+ * @file package_template_ut.cpp
  * @author Vincent Berenz
  * license License BSD-3-Clause
  * @copyright Copyright (c) 2019, New York University and Max Planck
@@ -8,13 +8,13 @@
  *
  * @brief example of unit tests
  * @see
- * https://git-amd.tuebingen.mpg.de/amd-clmc/ci_example/wikis/catkin:-how-to-implement-unit-tests
+ * https://git-amd.tuebingen.mpg.de/amd-clmc/package_template/wikis/catkin:-how-to-implement-unit-tests
  */
 
 #include <fstream>
 #include <iostream>
-#include "ci_example/file_configuration.hpp"
-#include "ci_example/pid.hpp"
+#include "package_template/file_configuration.hpp"
+#include "package_template/pid.hpp"
 #include "gtest/gtest.h"
 
 // more info:
@@ -23,7 +23,7 @@
 // quick reference:
 // http://www.cheezyworld.com/wp-content/uploads/2010/12/PlainGoogleQuickTestReferenceGuide1.pdf
 
-#define YAML_CONFIG_FILE "ci_example_unit_test.yaml"
+#define YAML_CONFIG_FILE "package_template_unit_test.yaml"
 
 /* ******************************* setup of test *******************************
  */
@@ -53,7 +53,7 @@ protected:
 
 TEST_F(PID_tests, default_configuration_test)
 {
-    ci_example::DefaultConfiguration config;
+    package_template::DefaultConfiguration config;
     ASSERT_EQ(config.get_kp(), DEFAULT_KP);
     ASSERT_EQ(config.get_kd(), DEFAULT_KD);
     ASSERT_EQ(config.get_ki(), DEFAULT_KI);
@@ -66,7 +66,7 @@ TEST_F(PID_tests, default_configuration_test)
 TEST_F(PID_tests, file_configuration_ok_test)
 {
     // see CMakeLists.txt to see how this change to valid path
-    ci_example::File_configuration config(YAML_CONFIG_FILE);
+    package_template::File_configuration config(YAML_CONFIG_FILE);
     ASSERT_EQ(config.get_kp(), DEFAULT_KP);
     ASSERT_EQ(config.get_kd(), DEFAULT_KD);
     ASSERT_EQ(config.get_ki(), DEFAULT_KI);
@@ -74,7 +74,7 @@ TEST_F(PID_tests, file_configuration_ok_test)
 
 TEST_F(PID_tests, file_configuration_fail_test)
 {
-    ci_example::File_configuration config("None existing file");
+    package_template::File_configuration config("None existing file");
     ASSERT_EQ(config.has_error(), true);
 }
 
@@ -85,7 +85,7 @@ TEST_F(PID_tests, file_configuration_fail_test)
 
 TEST_F(PID_tests, read_config_file_test)
 {
-    ci_example::File_configuration config(YAML_CONFIG_FILE);
+    package_template::File_configuration config(YAML_CONFIG_FILE);
     ASSERT_EQ(config.has_error(), false);
 }
 
@@ -97,13 +97,13 @@ TEST_F(PID_tests, configurations_same_results_test)
     double position_target = 2;
     double delta_time = 0.01;
 
-    ci_example::DefaultConfiguration default_config;
-    ci_example::PID controller_default(default_config);
+    package_template::DefaultConfiguration default_config;
+    package_template::PID controller_default(default_config);
     double force_default = controller_default.compute(
         position, velocity, position_target, delta_time);
 
-    ci_example::File_configuration file_config(YAML_CONFIG_FILE);
-    ci_example::PID controller_file(file_config);
+    package_template::File_configuration file_config(YAML_CONFIG_FILE);
+    package_template::PID controller_file(file_config);
     double force_file = controller_file.compute(
         position, velocity, position_target, delta_time);
 
@@ -119,7 +119,7 @@ TEST_F(PID_tests, integral)
     double position_target = 2;
     double delta_time = 0.01;
 
-    ci_example::PID& controller = ci_example::get_default_pid();
+    package_template::PID& controller = package_template::get_default_pid();
     double force_1 =
         controller.compute(position, velocity, position_target, delta_time);
     double force_2 =
@@ -138,7 +138,7 @@ TEST_F(PID_tests, reset_integral)
     double delta_time = 0.01;
 
     // running pid and integrating
-    ci_example::PID& controller = ci_example::get_default_pid();
+    package_template::PID& controller = package_template::get_default_pid();
     double force_1 =
         controller.compute(position, velocity, position_target, delta_time);
 
@@ -161,7 +161,7 @@ TEST_F(PID_tests, zero_force_at_target)
     double position_target = position;
     double delta_time = 0.01;
 
-    ci_example::PID& controller = ci_example::get_default_pid();
+    package_template::PID& controller = package_template::get_default_pid();
     double force =
         controller.compute(position, velocity, position_target, delta_time);
 
@@ -177,7 +177,7 @@ TEST_F(PID_tests, right_direction)
     double position_target = 1;
     double delta_time = 0.01;
 
-    ci_example::PID& controller = ci_example::get_default_pid();
+    package_template::PID& controller = package_template::get_default_pid();
     double force =
         controller.compute(position, velocity, position_target, delta_time);
     ASSERT_GT(force, 0);

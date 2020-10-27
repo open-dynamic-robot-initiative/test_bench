@@ -5,7 +5,7 @@ Unit-tests for PID and related factories
 import unittest
 import yaml
 import os
-from ci_example import pid
+from package_template import pid
 
 
 ## set of unit-tests for PID and related factories

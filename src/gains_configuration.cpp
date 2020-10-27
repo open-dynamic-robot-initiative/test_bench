@@ -6,9 +6,9 @@
  * @date 2019-12-09
  */
 
-#include "ci_example/gains_configuration.hpp"
+#include "package_template/gains_configuration.hpp"
 
-namespace ci_example
+namespace package_template
 {
 void print_configuration(const Gains_configuration& configuration)
 {
@@ -17,4 +17,4 @@ void print_configuration(const Gains_configuration& configuration)
     std::cout << "ki: " << configuration.get_ki() << std::endl;
 }
 
-}  // namespace ci_example
+}  // namespace package_template

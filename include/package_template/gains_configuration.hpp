@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 
-namespace ci_example
+namespace package_template
 {
 /** @brief Abstract class defining for the PID configuration.
  *
@@ -63,4 +63,4 @@ public:
  * standard output */
 void print_configuration(const Gains_configuration& configuration);
 
-}  // namespace ci_example
+}  // namespace package_template

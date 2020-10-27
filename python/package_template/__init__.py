@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""@package ci_example Contains an example of a python package.
+"""@package package_template Contains an example of a python package.
 
    @file __init__.py
 """
@@ -10,4 +10,4 @@ __license__ = "BSD-3-Clause"
 __version__ = "0.0.0"
 __status__ = "Development"
 
-from ci_example_cpp_bindings import *
+from package_template_cpp_bindings import *

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "ci_example_cpp/gains_configuration.hpp"
+#include "package_template_cpp/gains_configuration.hpp"
 #include "ros/master.h"
 #include "ros/ros.h"
 
@@ -16,7 +16,7 @@
 #define ROSPARAM_KD "gains_kd"
 #define ROSPARAM_KI "gains_ki"
 
-namespace ci_example
+namespace package_template
 {
 /*! @brief Read gains configuration from the ros parameter server. */
 class RosParameters_configuration : public Gains_configuration
@@ -51,4 +51,4 @@ private:
     bool error_;                /*!< True is an error occured. */
 };
 
-}  // namespace ci_example
+}  // namespace package_template

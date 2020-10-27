@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.2)
-project(ci_example) 
+project(package_template) 
 
 # Using C++17
 if(NOT CMAKE_C_STANDARD)
@@ -95,12 +95,13 @@ install(
 ament_package()
 
 
-##################
-# cpp unit tests #
-##################
+##############
+# unit tests #
+##############
 
 if(BUILD_TESTING)
 
+  # cpp unit tests
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(test_${PROJECT_NAME}_cpp tests/main.cpp tests/unit_tests.cpp)
   target_link_libraries(test_${PROJECT_NAME}_cpp ${PROJECT_NAME})
@@ -108,6 +109,7 @@ if(BUILD_TESTING)
     COMPILE_DEFINITIONS
     TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
+  # python unit tests
   find_package(ament_cmake_nose REQUIRED)
   ament_add_nose_test(test_${PROJECT_NAME}_python tests/test_pid.py)
   
