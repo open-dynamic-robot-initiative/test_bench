@@ -101,15 +101,15 @@ ament_package()
 
 if(BUILD_TESTING)
 
-  find_package(ament_cmake_gtest)
+  find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(test_${PROJECT_NAME}_cpp tests/main.cpp tests/unit_tests.cpp)
   target_link_libraries(test_${PROJECT_NAME}_cpp ${PROJECT_NAME})
   set_target_properties(test_${PROJECT_NAME}_cpp PROPERTIES 
     COMPILE_DEFINITIONS
     TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
 
-  #find_package(ament_cmake_nose)
-  #ament_add_nose_test(test_${PROJECT_NAME}_python tests/test_pid.py)
+  find_package(ament_cmake_nose REQUIRED)
+  ament_add_nose_test(test_${PROJECT_NAME}_python tests/test_pid.py)
   
 endif()
 

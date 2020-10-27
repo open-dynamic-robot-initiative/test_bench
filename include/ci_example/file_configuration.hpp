@@ -1,28 +1,25 @@
 /**
  * @file file_configuration.hpp
  * @author Vincent Berenz
- * @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft, License BSD-3-Clause
+ * @copyright Copyright (c) 2019, New York University and Max Planck
+ * Gesellschaft, License BSD-3-Clause
  * @date 2019-12-09
  */
 
 #pragma once
 
-
-#include "yaml-cpp/yaml.h"
 #include "ci_example/gains_configuration.hpp"
+#include "yaml-cpp/yaml.h"
 
-
-namespace ci_example {
-
-  
-  /*! @brief Reading configuration from yaml file. */
-  class File_configuration : public Gains_configuration {
-    
-  public:
-    
+namespace ci_example
+{
+/*! @brief Reading configuration from yaml file. */
+class File_configuration : public Gains_configuration
+{
+public:
     /**
      * Returns error encountered when reading configuration
-     * @param yaml_file absolute path to configuration yaml file. 
+     * @param yaml_file absolute path to configuration yaml file.
      *        The file is expected to have parameters "kp", "kd" and "ki"
      * @see has_error()
      */
@@ -42,8 +39,8 @@ namespace ci_example {
 
     /** @copydoc Gains_configuration::get_error() */
     std::string get_error() const;
-    
-  private:
+
+private:
     /** @brief  Proportinal gain. */
     double kp_;
     /** @brief  Derivative gain. */
@@ -54,7 +51,6 @@ namespace ci_example {
     std::string error_message_;
     /** @brief  True if an error occured. */
     bool error_;
-    
-  };
+};
 
-}
+}  // namespace ci_example
