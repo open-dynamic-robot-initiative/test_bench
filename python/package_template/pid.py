@@ -35,6 +35,16 @@ class DefaultConfiguration(object):
     kd=1
     ki=1
 
+    def __init__(self):
+        self.kp=1
+        self.kd=1
+        self.ki=1
+    
+    def __repr__(self):
+        return "%s(kp=%r, kd=%r, ki=%r)" % (
+            self.__class__.__name__, self.kp, self.kd, self.ki)
+
+
 
 class RosConfiguration:
     """  ROS param configuration
@@ -54,7 +64,7 @@ class RosConfiguration:
 class ConfigFileConfiguration:
     """  Path to default configuration file, relative to the pid package """
     ## Relative path to the default configuration fole
-    relative_path = os.path.join("..", "..", "config", "test_pid_gains.yaml")
+    relative_path = os.path.join("config", "test_pid_gains.yaml")
 
 
 # "PythonPID" : to differentiate with cpp bindings PID
@@ -127,22 +137,31 @@ def _read_yaml_config_file(file_path):
 
     # importing yaml and reading yaml file
     import yaml
+    assert os.path.isfile(file_path)
     with open(file_path,"r") as f:
-        config_dict = yaml.load(f)
+        yaml_load_object = yaml.load(f)
+    
     # checking the yaml file had the excepted entries
     expected_attributes = ["kp","kd","ki"]
-    for attribute in expected_attributes:
-        if not attribute in config_dict.keys():
-            raise Exception("Configuration file "+str(file_path)+" is expected to have the "+str(attribute)+" entry")
-    # creating a config object with correct attributes
-    class config(object): pass
-    for attribute in expected_attributes:
-        try : 
-            setattr(config, attribute, float(config_dict[attribute]))
-        except Exception: 
-            raise Exception("failed to convert "+attribute+"("+str(config_dict[attribute])+") to float (file: "+str(file_path)+")")
+    if isinstance(yaml_load_object, DefaultConfiguration):
+        for attribute in expected_attributes:
+            if not hasattr(yaml_load_object, attribute):
+                raise Exception("Configuration file "+str(file_path)+" is expected to have the "+str(attribute)+" entry")
+        Config = yaml_load_object
+    elif isinstance(yaml_load_object, dict):
+        for attribute in expected_attributes:
+            if not attribute in yaml_load_object.keys():
+                raise Exception("Configuration file "+str(file_path)+" is expected to have the "+str(attribute)+" entry")
+        # creating a config object with correct attributes
+        class Config(object): pass
+        for attribute in expected_attributes:
+            try : 
+                setattr(Config, attribute, float(yaml_load_object[attribute]))
+            except Exception:
+                raise Exception("failed to convert "+attribute+"("+str(yaml_load_object[attribute])+") to float (file: "+str(file_path)+")")
+    
     # constructing and returning controller
-    return PID(config)
+    return PythonPID(Config)
 
 
 def get_default_pid():
@@ -153,7 +172,7 @@ def get_default_pid():
     Returns:
         PID `--` a new PID controller based on the DefaultConfiguration.
     """
-    return PID(DefaultConfiguration)
+    return PythonPID(DefaultConfiguration)
 
 
 def get_ros_params_pid(verbose=True):
@@ -192,7 +211,7 @@ def get_ros_params_pid(verbose=True):
         except Exception as e:
             raise Exception("failed to read ros parameter "+str(parameter)+": "+str(e))
     # constructing and returning controller    
-    return PID(config)
+    return PythonPID(config)
 
 
 def get_config_file_pid(config_file_path=None,verbose=True):
@@ -217,7 +236,7 @@ def get_config_file_pid(config_file_path=None,verbose=True):
         # getting abs path of folder in which this script is
         abs_path =  abs_path_script[:-len(script)]
         # getting abs path to config file
-        abs_path_config = os.path.abspath(abs_path+os.sep+ConfigFileConfiguration.relative_path)
+        abs_path_config = os.path.abspath(os.path.join(abs_path, ConfigFileConfiguration.relative_path))
     else : abs_path_config = config_file_path
     # checking file exists
     if not os.path.isfile(abs_path_config):

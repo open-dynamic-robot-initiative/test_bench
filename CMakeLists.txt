@@ -70,7 +70,7 @@ install(TARGETS ${PROJECT_NAME}_cpp_bindings DESTINATION ${PYTHON_INSTALL_DIR})
 ######################
 
 ament_python_install_package(${PROJECT_NAME} PACKAGE_DIR python/${PROJECT_NAME})
-
+install(FILES config/test_pid_gains.yaml DESTINATION ${PYTHON_INSTALL_DIR}/${PROJECT_NAME}/config)
 
 #################
 # documentation #
