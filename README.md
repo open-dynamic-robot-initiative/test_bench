@@ -1,15 +1,15 @@
-package_template_cpp {#mainpage}
-===============
+Readme
+------
 
 ## What is it
 
-This package contains a set of examples of demos and unit tests in c++ 
-supported by the continuous integration. It also contains the coding guidelines
-setup in the [machines-in-motion](https://wp.nyu.edu/machinesinmotion/) group.
+Drivers for a test_bench base on:
+- https://github.com/open-dynamic-robot-initiative/open_robot_actuator_hardware/blob/master/mechanics/dual_motor_testbed_v1/README.md#dual-motor-testbed-v1
+- https://github.com/open-dynamic-robot-initiative/master-board
+
 
 ## Authors
 
-- Vincent Berenz
 - Maximilien Naveau
 
 ## Copyrights

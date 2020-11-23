@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.2)
-project(package_template) 
+project(test_bench) 
 
 # Using C++17
 if(NOT CMAKE_C_STANDARD)
@@ -9,90 +9,58 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
 endif()
 
-
-################
-# Dependencies #
-################
+#
+# Dependencies
+#
 
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)
-find_package(yaml_utils REQUIRED)
 find_package(mpi_cmake_modules REQUIRED)
-find_package(pybind11_vendor REQUIRED)
-find_package(pybind11 REQUIRED)
-ament_export_dependencies(mpi_cmake_modules yaml_utils pybind11)
+find_package(yaml_utils REQUIRED)
+find_package(mim_msgs REQUIRED)
+find_package(master_board_sdk REQUIRED)
+find_package(Eigen3 REQUIRED)
 
+find_package(dynamic_graph_manager QUIET)
 
+#
 # prepare to export all needed targets
+#
+ament_export_dependencies(ament_cmake mpi_cmake_modules yaml_utils master_board_sdk)
+ament_export_interfaces(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 set(all_targets)
-set(all_target_exports)
 
-
-###########
-# Library #
-###########
+#
+# Library.
+#
 
 add_library( ${PROJECT_NAME} SHARED
-  src/gains_configuration.cpp
-  src/default_configuration.cpp
-  src/file_configuration.cpp
-  src/pid.cpp )
+  src/${PROJECT_NAME}.cpp)
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(${PROJECT_NAME} yaml_utils::yaml_utils)
-ament_export_interfaces(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+target_link_libraries(${PROJECT_NAME} master_board_sdk::master_board_sdk)
+target_link_libraries(${PROJECT_NAME} Eigen3::Eigen)
 list(APPEND all_targets ${PROJECT_NAME})
-list(APPEND all_target_exports export_${PROJECT_NAME})
 
+if(${dynamic_graph_manager_FOUND})
 
-###################
-# Python wrappers #
-###################
+  add_library(dgm_${PROJECT_NAME} SHARED src/dgm_${PROJECT_NAME}.cpp)
+  target_include_directories(
+    dgm_${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+  target_link_libraries(dgm_${PROJECT_NAME} ${PROJECT_NAME})
+  target_link_libraries(dgm_${PROJECT_NAME} dynamic_graph_manager::dynamic_graph_manager)
+  list(APPEND all_targets dgm_${PROJECT_NAME})
 
-add_library(${PROJECT_NAME}_cpp_bindings MODULE srcpy/wrappers.cpp)
-target_link_libraries(${PROJECT_NAME}_cpp_bindings PRIVATE pybind11::module)
-target_link_libraries(${PROJECT_NAME}_cpp_bindings PRIVATE ${PYTHON_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_cpp_bindings PRIVATE ${PROJECT_NAME})
-set_target_properties(${PROJECT_NAME}_cpp_bindings
-                      PROPERTIES PREFIX "" SUFFIX "${PYTHON_MODULE_EXTENSION}")
-target_include_directories(
-  ${PROJECT_NAME}_cpp_bindings
-  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-         $<INSTALL_INTERFACE:include> SYSTEM
-  PUBLIC ${PYTHON_INCLUDE_DIRS})
-_ament_cmake_python_get_python_install_dir()
-install(TARGETS ${PROJECT_NAME}_cpp_bindings DESTINATION ${PYTHON_INSTALL_DIR})
+  add_executable(dg_main_${PROJECT_NAME} src/dg_main_${PROJECT_NAME}.cpp)
+  target_include_directories(
+    dg_main_${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+  target_link_libraries(dg_main_${PROJECT_NAME} dgm_${PROJECT_NAME})
+  list(APPEND all_targets dg_main_${PROJECT_NAME})  
 
-
-######################
-# Python Native code #
-######################
-
-ament_python_install_package(${PROJECT_NAME} PACKAGE_DIR python/${PROJECT_NAME})
-install(FILES config/test_pid_gains.yaml DESTINATION ${PYTHON_INSTALL_DIR}/${PROJECT_NAME}/config)
-
-#################
-# documentation #
-#################
-
-add_documentation()
-
-
-######################
-# Install and export #
-######################\
-
-install(DIRECTORY include/ DESTINATION include)
-install(
-  TARGETS ${all_targets}
-  EXPORT ${all_target_exports}
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
-  INCLUDES
-  DESTINATION include)
-ament_package()
+endif()
 
 
 ##############
@@ -100,19 +68,26 @@ ament_package()
 ##############
 
 if(BUILD_TESTING)
-
-  # cpp unit tests
-  find_package(ament_cmake_gtest REQUIRED)
-  ament_add_gtest(test_${PROJECT_NAME}_cpp tests/main.cpp tests/unit_tests.cpp)
-  target_link_libraries(test_${PROJECT_NAME}_cpp ${PROJECT_NAME})
-  set_target_properties(test_${PROJECT_NAME}_cpp PROPERTIES 
-    COMPILE_DEFINITIONS
-    TEST_PID_GAINS_YAML_FILE_PATH="${CONFIG_PATH}/test_pid_gains.yaml")
-
-  # python unit tests
-  find_package(ament_cmake_nose REQUIRED)
-  ament_add_nose_test(test_${PROJECT_NAME}_python tests/test_pid.py)
-  
+  # Nothing yet.
 endif()
 
-      
+#
+# Documentation.
+#
+
+add_documentation()
+
+#
+# Install and export.
+#
+
+install(DIRECTORY include/ DESTINATION include)
+install(
+  TARGETS ${all_targets}
+  EXPORT export_${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES
+  DESTINATION include)
+ament_package()
