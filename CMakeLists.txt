@@ -85,13 +85,26 @@ add_documentation()
 # Install and export.
 #
 
+# Install launch files
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+# Install resource files
+install(DIRECTORY
+  resource
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+# Install libraries and executables
 install(DIRECTORY include/ DESTINATION include)
 install(
   TARGETS ${all_targets}
   EXPORT export_${PROJECT_NAME}
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
   INCLUDES
   DESTINATION include)
 ament_package()
