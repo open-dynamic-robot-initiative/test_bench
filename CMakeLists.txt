@@ -15,7 +15,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(mpi_cmake_modules REQUIRED)
-find_package(yaml_utils REQUIRED)
+find_package(real_time_tools REQUIRED)
 find_package(mim_msgs REQUIRED)
 find_package(master_board_sdk REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -38,12 +38,14 @@ add_library( ${PROJECT_NAME} SHARED
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(${PROJECT_NAME} yaml_utils::yaml_utils)
+target_link_libraries(${PROJECT_NAME} real_time_tools::real_time_tools)
 target_link_libraries(${PROJECT_NAME} master_board_sdk::master_board_sdk)
 target_link_libraries(${PROJECT_NAME} Eigen3::Eigen)
 list(APPEND all_targets ${PROJECT_NAME})
 
 if(${dynamic_graph_manager_FOUND})
+  find_package(ament_index_cpp REQUIRED)
+  find_package(yaml_utils REQUIRED)
 
   add_library(dgm_${PROJECT_NAME} SHARED src/dgm_${PROJECT_NAME}.cpp)
   target_include_directories(
@@ -51,13 +53,15 @@ if(${dynamic_graph_manager_FOUND})
     $<INSTALL_INTERFACE:include>)
   target_link_libraries(dgm_${PROJECT_NAME} ${PROJECT_NAME})
   target_link_libraries(dgm_${PROJECT_NAME} dynamic_graph_manager::dynamic_graph_manager)
-  list(APPEND all_targets dgm_${PROJECT_NAME})
+  target_link_libraries(dgm_${PROJECT_NAME} yaml_utils::yaml_utils)
+    list(APPEND all_targets dgm_${PROJECT_NAME})
 
   add_executable(dg_main_${PROJECT_NAME} src/dg_main_${PROJECT_NAME}.cpp)
   target_include_directories(
     dg_main_${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
   target_link_libraries(dg_main_${PROJECT_NAME} dgm_${PROJECT_NAME})
+  target_link_libraries(dg_main_${PROJECT_NAME} ament_index_cpp::ament_index_cpp)
   list(APPEND all_targets dg_main_${PROJECT_NAME})  
 
 endif()

@@ -9,6 +9,8 @@
 
 #include "test_bench/test_bench.hpp"
 
+#include "real_time_tools/spinner.hpp"
+
 namespace test_bench
 {
 TestBench::TestBench()
@@ -20,9 +22,9 @@ TestBench::TestBench()
 
     // Constants.
     data_.joint_gear_ratios.fill(1.0);
-    data_.motor_torque_constants.fill();
-    data_.max_motor_current.fill();
-    data_.polarities.fill();
+    data_.motor_torque_constants.fill(0.025);
+    data_.max_motor_current.fill(2.0);
+    data_.polarities.fill(1.0);
 
     // set the pointers to nullptr
     robot_drivers = nullptr;
@@ -44,17 +46,12 @@ void TestBench::initialize(const std::string& network_id)
         robot_drivers->motor_drivers[i].Enable();
     }
 
-    std::chrono::time_point<std::chrono::system_clock> last =
-        std::chrono::system_clock::now();
+    real_time_tools::Spinner spinner;
+    spinner.set_period(0.001);
     while (!robot_drivers->IsTimeout() && !robot_drivers->IsAckMsgReceived())
     {
-        if (((std::chrono::duration<double>)(std::chrono::system_clock::now() -
-                                             last))
-                .count() > dt)
-        {
-            last = std::chrono::system_clock::now();
-            robot_drivers->SendInit();
-        }
+        robot_drivers->SendInit();
+        spinner.spin();
     }
 }
 
@@ -75,38 +72,38 @@ bool TestBench::ready()
 void TestBench::acquire_sensors()
 {
     robot_drivers->ParseSensorData();
-
-    for (size_t i = 0; i < data_.joint_positions.size(); i++)
+    for (Eigen::Index i = 0; i < data_.joint_positions.size(); i++)
     {
-        data_.joint_positions(i) = robot_drivers->motors[i]->GetPosition();
+        data_.joint_positions(i) = robot_drivers->motors[i].get_position();
     }
-    positions = positions.cwiseProduct(data_.polarities)
-                    .cwiseQuotient(data.gear_ratios);
+    data_.joint_positions = data_.joint_positions.cwiseProduct(data_.polarities)
+                                .cwiseQuotient(data_.joint_gear_ratios);
 
-    for (size_t i = 0; i < data_.joint_velocities.size(); i++)
+    for (Eigen::Index i = 0; i < data_.joint_velocities.size(); i++)
     {
-        data_.joint_velocities(i) = robot_drivers->motors[i]->GetVelocity();
+        data_.joint_velocities(i) = robot_drivers->motors[i].get_velocity();
     }
-    velocities = velocities.cwiseProduct(data_.polarities)
-                     .cwiseQuotient(data.gear_ratios);
+    data_.joint_velocities =
+        data_.joint_velocities.cwiseProduct(data_.polarities)
+            .cwiseQuotient(data_.joint_gear_ratios);
 }
 
-bool TestBench::send_target_joint_torque(
-    const Eigen::Ref<Eigen::Vector12d> target_joint_torque)
+void TestBench::send_target_joint_torque(
+    Eigen::Ref<const Eigen::Vector12d> target_joint_torque)
 {
     data_.desired_motor_current =
-        polarities_.cwiseProduct(data_.target_joint_torque)
+        data_.polarities.cwiseProduct(target_joint_torque)
             .cwiseQuotient(data_.joint_gear_ratios)
             .cwiseQuotient(data_.motor_torque_constants);
 
     // Current clamping.
     data_.desired_motor_current =
-        desired_motor_current.cwiseMin(data_.max_motor_current)
+        data_.desired_motor_current.cwiseMin(data_.max_motor_current)
             .cwiseMax(-data_.max_motor_current);
 
     for (int i = 0; i < 12; i++)
     {
-        robot_drivers->motors[i]->SetCurrentReference(
+        robot_drivers->motors[i].set_current_ref(
             data_.desired_motor_current(i));
     }
 }

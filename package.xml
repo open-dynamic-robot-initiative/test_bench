@@ -21,6 +21,8 @@
   
   <depend>mpi_cmake_modules</depend>
   <depend>yaml_utils</depend>
+  <depend>real_time_tools</depend>
+  <depend>ament_index_cpp</depend>
   <depend>master_board_sdk</depend>
   <depend>mim_msgs</depend>
   <depend>Eigen3</depend>

@@ -1,0 +1,34 @@
+#
+# @file dgm_parameters_solo8.yaml
+# @author Maximilien Naveau (maximilien.naveau@gmail.com)
+# @license License BSD-3-Clause
+# @copyright Copyright (c) 2019, New York University and Max Planck Gesellschaft.
+# @date 2019-05-22
+#
+# @brief Define the interface between the control and the hardware
+#
+
+device:
+  name: "test_bench"
+  sensors:
+    # joints data
+    joint_positions:
+      size: 12
+    joint_velocities:
+      size: 12
+    # additional data
+    # robot status
+  controls:
+    ctrl_joint_torques:
+      size: 12
+hardware_communication:
+  max_missed_control: 10
+  control_period: 1000000 # in nano second this means 1ms <=> 1kz
+  maximum_time_for_user_cmd: 100000
+  network_id: "eno1"
+
+robot_specifications:
+  motor_I: 0.045      # The inertia of a single motor.
+  max_current: 2.0    # Maximum Amper delivered.
+  motor_KT: 0.025     # The Kt constant of the motor [Nm/A]: tau = I * Kt
+  motor_gear_ratio: 1 # On the quadruped the gear ration is 1:9

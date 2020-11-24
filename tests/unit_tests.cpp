@@ -13,9 +13,9 @@
 
 #include <fstream>
 #include <iostream>
+#include "gtest/gtest.h"
 #include "package_template/file_configuration.hpp"
 #include "package_template/pid.hpp"
-#include "gtest/gtest.h"
 
 // more info:
 // http://www.ibm.com/developerworks/aix/library/au-googletestingframework.html

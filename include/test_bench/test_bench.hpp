@@ -1,12 +1,10 @@
 /**
- * @file dgm_teststandx.hpp
- * @author Manuel Wuthrich
- * @author Maximilien Naveau
- * @author Julian Viereck
- * @author Johannes Pfleging
+ * @file
  * @license License BSD-3-Clause
  * @copyright Copyright (c) 2019, New York University and Max Planck
  * Gesellshaft.
+ *
+ * @brief Defines the drivers of the test_bench
  */
 
 #pragma once
@@ -76,7 +74,7 @@ public:
     /**
      * @brief ~DGMTeststand is the destructor.
      */
-    ~TestBench();
+    ~TestBench(){};
 
     /**
      * @brief initialize is the function that initialize the hardware.
@@ -91,8 +89,16 @@ public:
     /**
      * @brief send_target_torques sends the target currents to the motors
      */
-    bool send_target_joint_torque(
-        const Eigen::Ref<Eigen::Vector12d> target_joint_torque);
+    void send_target_joint_torque(
+        Eigen::Ref<const Eigen::Vector12d> target_joint_torque);
+
+    /**
+     * @brief Check if everything is setup (motor aligned, no timeout, etc).
+     *
+     * @return true
+     * @return false
+     */
+    bool ready();
 
     /**
      * @brief get_joint_positions
