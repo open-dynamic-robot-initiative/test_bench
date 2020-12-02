@@ -25,7 +25,7 @@ hardware_communication:
   max_missed_control: 10
   control_period: 1000000 # in nano second this means 1ms <=> 1kz
   maximum_time_for_user_cmd: 100000
-  network_id: "eno1"
+  network_id: "ens3"
 
 robot_specifications:
   motor_I: 0.045      # The inertia of a single motor.

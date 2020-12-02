@@ -63,6 +63,13 @@ struct TestBenchData
     Eigen::Vector12d slider_positions_;
 };
 
+enum TestBenchState
+{
+    initial,
+    getting_ready,
+    ready
+};
+
 class TestBench
 {
 public:
@@ -135,6 +142,10 @@ private:
 
     /** @brief Sensor and internal robot data. */
     TestBenchData data_;
+    
+    /** @brief State of the state machine managing the initialization procedure.
+     */
+    TestBenchState state_;
 };
 
 }  // namespace test_bench

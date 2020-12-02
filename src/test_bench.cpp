@@ -28,6 +28,9 @@ TestBench::TestBench()
 
     // set the pointers to nullptr
     robot_drivers = nullptr;
+
+    // Start in initial state.
+    state_ = TestBenchState::initial;
 }
 
 void TestBench::initialize(const std::string& network_id)
@@ -45,19 +48,11 @@ void TestBench::initialize(const std::string& network_id)
         robot_drivers->motor_drivers[i].SetTimeout(5);
         robot_drivers->motor_drivers[i].Enable();
     }
-
-    real_time_tools::Spinner spinner;
-    spinner.set_period(0.001);
-    while (!robot_drivers->IsTimeout() && !robot_drivers->IsAckMsgReceived())
-    {
-        robot_drivers->SendInit();
-        spinner.spin();
-    }
 }
 
 bool TestBench::ready()
 {
-    bool ready = robot_drivers->IsTimeout();
+    bool ready = !robot_drivers->IsTimeout();
     for (int i = 0; i < 6; i++)
     {
         if (!robot_drivers->motor_drivers[i / 2].is_connected)
@@ -91,20 +86,50 @@ void TestBench::acquire_sensors()
 void TestBench::send_target_joint_torque(
     Eigen::Ref<const Eigen::Vector12d> target_joint_torque)
 {
-    data_.desired_motor_current =
-        data_.polarities.cwiseProduct(target_joint_torque)
-            .cwiseQuotient(data_.joint_gear_ratios)
-            .cwiseQuotient(data_.motor_torque_constants);
-
-    // Current clamping.
-    data_.desired_motor_current =
-        data_.desired_motor_current.cwiseMin(data_.max_motor_current)
-            .cwiseMax(-data_.max_motor_current);
-
-    for (int i = 0; i < 12; i++)
+    switch (state_)
     {
-        robot_drivers->motors[i].set_current_ref(
-            data_.desired_motor_current(i));
+        case TestBenchState::initial:
+            if (!robot_drivers->IsTimeout() &&
+                !robot_drivers->IsAckMsgReceived())
+            {
+                robot_drivers->SendInit();
+            }
+            else
+            {
+                state_ = TestBenchState::getting_ready;
+            }
+            break;
+        case TestBenchState::getting_ready:
+            if (!ready())
+            {
+                data_.desired_motor_current.fill(0.0);
+                robot_drivers->SendCommand();
+            }
+            else
+            {
+                state_ = TestBenchState::ready;
+            }
+            break;
+        case TestBenchState::ready:
+            data_.desired_motor_current =
+                data_.polarities.cwiseProduct(target_joint_torque)
+                    .cwiseQuotient(data_.joint_gear_ratios)
+                    .cwiseQuotient(data_.motor_torque_constants);
+
+            // Current clamping.
+            data_.desired_motor_current =
+                data_.desired_motor_current.cwiseMin(data_.max_motor_current)
+                    .cwiseMax(-data_.max_motor_current);
+
+            for (int i = 0; i < 12; i++)
+            {
+                robot_drivers->motors[i].set_current_ref(
+                    data_.desired_motor_current(i));
+            }
+            robot_drivers->SendCommand();
+            break;
+        default:
+            break;
     }
 }
 

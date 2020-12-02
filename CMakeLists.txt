@@ -19,8 +19,9 @@ find_package(real_time_tools REQUIRED)
 find_package(mim_msgs REQUIRED)
 find_package(master_board_sdk REQUIRED)
 find_package(Eigen3 REQUIRED)
-
-find_package(dynamic_graph_manager QUIET)
+find_package(ament_index_cpp REQUIRED)
+find_package(yaml_utils REQUIRED)
+find_package(dynamic_graph_manager REQUIRED)
 
 #
 # prepare to export all needed targets
@@ -43,9 +44,6 @@ target_link_libraries(${PROJECT_NAME} master_board_sdk::master_board_sdk)
 target_link_libraries(${PROJECT_NAME} Eigen3::Eigen)
 list(APPEND all_targets ${PROJECT_NAME})
 
-if(${dynamic_graph_manager_FOUND})
-  find_package(ament_index_cpp REQUIRED)
-  find_package(yaml_utils REQUIRED)
 
   add_library(dgm_${PROJECT_NAME} SHARED src/dgm_${PROJECT_NAME}.cpp)
   target_include_directories(
@@ -64,12 +62,9 @@ if(${dynamic_graph_manager_FOUND})
   target_link_libraries(dg_main_${PROJECT_NAME} ament_index_cpp::ament_index_cpp)
   list(APPEND all_targets dg_main_${PROJECT_NAME})  
 
-endif()
-
-
-##############
-# unit tests #
-##############
+#
+# Unit tests.
+#
 
 if(BUILD_TESTING)
   # Nothing yet.

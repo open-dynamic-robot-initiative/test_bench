@@ -18,14 +18,15 @@
   <license>BSD 3-Clause</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>mpi_cmake_modules</buildtool_depend>
   
-  <depend>mpi_cmake_modules</depend>
-  <depend>yaml_utils</depend>
   <depend>real_time_tools</depend>
-  <depend>ament_index_cpp</depend>
-  <depend>master_board_sdk</depend>
   <depend>mim_msgs</depend>
+  <depend>master_board_sdk</depend>
   <depend>Eigen3</depend>
+  <depend>ament_index_cpp</depend>
+  <depend>yaml_utils</depend>
+  <depend>dynamic_graph_manager</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
   <test_depend>ament_cmake_nose</test_depend>
